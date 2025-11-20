@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* ========== NEUE HAAS DISPLAY – semua weight & italic ========== */
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayThin.ttf") format("truetype");
@@ -114,7 +113,6 @@
   font-display: swap;
 }
 
-/* ========== TAILWIND CUSTOM ========== */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -143,7 +141,6 @@ body {
   font-family: "Neue Haas Display", sans-serif;
 }
 
-/* Utility class kalau mau ganti ke Merriweather di tempat tertentu */
 .font-literata {
   font-family: "Literata", serif !important;
 }
