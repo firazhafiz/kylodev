@@ -1,7 +1,10 @@
+import ReactLenis from "lenis/react";
+
 export default function Home() {
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <ReactLenis
+      root
+      className="w-full min-h-screen bg-gray-100 dark:bg-black-100"
+    ></ReactLenis>
   );
 }
