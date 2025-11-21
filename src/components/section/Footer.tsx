@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import Image from "next/image";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,8 +9,8 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="text-2xl font-bold text-primary mb-4">Kylo</h3>
-            <p className="text-muted-foreground">Professional web and mobile development services.</p>
+            <Image width={50} height={50} alt="logo" src={"/assets/kylo-black.png"} />
+            <p className="text-muted-foreground mt-2">Professional web and mobile development services.</p>
           </div>
 
           <div>

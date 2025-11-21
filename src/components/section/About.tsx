@@ -1,79 +1,99 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FaGithub, FaMailchimp } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa";
+import { Badge } from "@/components/ui/badge";
+import { Users, Award, Code, TrendingUp, CheckCircle } from "lucide-react";
+import Image from "next/image";
 
-const teamMembers = [
-  {
-    name: "Alex Johnson",
-    role: "Full Stack Developer",
-    avatar: "/placeholder.svg",
-    bio: "Specialized in React, Node.js, and cloud architecture. 5+ years of experience building scalable web applications.",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    email: "alex@kylo.dev",
-  },
-  {
-    name: "Sarah Chen",
-    role: "Mobile Developer",
-    avatar: "/placeholder.svg",
-    bio: "Expert in React Native and Flutter. Passionate about creating beautiful, performant mobile experiences.",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    email: "sarah@kylo.dev",
-  },
+const stats = [
+  { icon: CheckCircle, value: "50+", label: "Proyek Selesai", color: "color-navy" },
+  { icon: Users, value: "40+", label: "Klien Puas", color: "text-(--color-navy)" },
+  { icon: Award, value: "100%", label: "Client Satisfaction", color: "text-(--color-navy)" },
 ];
 
-export function About() {
+export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!cardsRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-    const cards = cardsRef.current.querySelectorAll(".team-card");
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="section-padding bg-secondary/30 flex  justify-center items-center min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Meet Our Team</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Two passionate developers committed to delivering exceptional digital solutions</p>
+    <section id="about" ref={sectionRef} className="section-padding flex justify-center items-center min-h-screen py-20 px-4 ">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-4">
+            <Code className="w-4 h-4" />
+            <span className="text-sm font-medium">Tentang Kami</span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Partner Digital Terpercaya Anda</h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">Membantu bisnis bertransformasi digital dengan solusi website dan aplikasi profesional</p>
         </div>
 
-        <div ref={cardsRef} className="grid md:grid-cols-2 gap-8">
-          {teamMembers.map((member, index) => (
-            <Card key={index} className="team-card p-8 card-hover-effect">
-              <div className="flex flex-col items-center text-center">
-                <Avatar className="w-32 h-32 mb-6">
-                  <AvatarImage src={member.avatar} alt={member.name} />
-                  <AvatarFallback className="text-2xl bg-primary text-primary-foreground">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </AvatarFallback>
-                </Avatar>
-                <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
-                <p className="text-primary font-medium mb-4">{member.role}</p>
-                <p className="text-muted-foreground mb-6">{member.bio}</p>
-                <div className="flex gap-4">
-                  <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                    <FaGithub className="h-5 w-5" />
-                  </a>
-                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                    <FaLinkedin className="h-5 w-5" />
-                  </a>
-                  <a href={`mailto:${member.email}`} className="text-muted-foreground hover:text-primary transition-colors">
-                    <FaMailchimp className="h-5 w-5" />
-                  </a>
-                </div>
+        {/* Main Content */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          <div className="relative">
+            <div className="relative rounded-3xl overflow-hidden  ">
+              <Image src={"/images/about.jpg"} alt="about" width={500} height={700} className="object-cover w-full max-h-[500px] flex items-center justify-center" />
+            </div>
+
+            {/* Floating Stats Cards */}
+            <div className="absolute -bottom-8 right-4 left-4 grid grid-cols-3 gap-3">
+              {stats.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <Card key={index} className="p-2 md:p-4 bg-white border  border-gray-200 shadow-xs">
+                    <div className="text-center">
+                      <Icon className="size-4 md:size-6 text-primary mx-auto mb-2 text-(--color-navy)" color={stat.color} stroke="currentColor" />
+                      <div className="text-lg md:text-2xl font-bold text-primary mb-1 text-(--color-navy)">{stat.value}</div>
+                      <div className="text-xs text-gray-600">{stat.label}</div>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right Side - Content */}
+          <div className={`space-y-8 transition-all duration-1000 delay-500 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
+            {/* Main Description */}
+            <div>
+              <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 text-(--color-navy)">
+                <TrendingUp className="w-3 h-3 mr-1" />
+                Solusi Digital Profesional
+              </Badge>
+
+              <h3 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">Mewujudkan Visi Digital Bisnis Anda</h3>
+
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p className="text-lg">Kami adalah tim freelance developer yang berdedikasi untuk membantu pelaku usaha dan bisnis bertransformasi menjadi lebih profesional melalui solusi digital yang tepat sasaran.</p>
+
+                <p>
+                  Dengan pengalaman menangani puluhan proyek dari berbagai industri, kami memahami bahwa setiap bisnis memiliki kebutuhan unik. Oleh karena itu, kami tidak hanya menawarkan website atau aplikasi, tetapi{" "}
+                  <span className="text-foreground font-semibold">solusi digital komprehensif</span> yang disesuaikan dengan tujuan bisnis Anda.
+                </p>
+
+                <p>Dari startup yang baru memulai hingga perusahaan yang ingin meningkatkan presence digital mereka, kami siap menjadi partner terpercaya dalam perjalanan digital transformation Anda.</p>
               </div>
-            </Card>
-          ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
