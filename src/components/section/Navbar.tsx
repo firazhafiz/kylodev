@@ -11,28 +11,17 @@ export default function Navbar() {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const desktopNavRef = useRef<HTMLElement>(null);
 
-  // --- LOGIC 1: CONTROLLER MOUNTING (Mount menu saat dibuka) ---
-  useEffect(() => {
-    if (isOpen) {
-      setIsMounted(true); // FIX: Uncomment ini agar menu di-mount
-    }
-  }, [isOpen]);
-
-  // --- LOGIC 2: ANIMASI GSAP (MOBILE) ---
+  // --- ANIMASI GSAP (MOBILE) - Simplified without isMounted ---
   useEffect(() => {
     const menuEl = menuRef.current;
     const overlayEl = overlayRef.current;
 
-    if (!menuEl || !overlayEl || !isMounted) return;
-
-    // Set posisi awal menu di luar viewport
-    gsap.set(menuEl, { x: "100%" });
+    if (!menuEl || !overlayEl) return;
 
     const navItems = gsap.utils.toArray(
       menuEl.querySelectorAll("nav .menu-item")
@@ -52,22 +41,21 @@ export default function Navbar() {
         // === BUKA MENU ===
         document.body.style.overflowX = "hidden";
 
+        // Set initial state
+        gsap.set(menuEl, { x: "100%" });
+        gsap.set(itemsToAnimateIn, { x: 100, opacity: 0 });
         gsap.set(overlayEl, { display: "block", opacity: 0 });
+
+        // Animate in
         gsap.to(overlayEl, { opacity: 0.6, duration: 0.4 });
-
         gsap.to(menuEl, { x: "0%", duration: 0.65, ease: "power3.out" });
-
-        gsap.fromTo(
-          itemsToAnimateIn,
-          { x: 100, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            stagger: 0.07,
-            delay: 0.25,
-            ease: "power2.out",
-          }
-        );
+        gsap.to(itemsToAnimateIn, {
+          x: 0,
+          opacity: 1,
+          stagger: 0.07,
+          delay: 0.25,
+          ease: "power2.out",
+        });
       } else {
         // === TUTUP MENU ===
         gsap.to(itemsToAnimateIn, {
@@ -87,7 +75,6 @@ export default function Navbar() {
           ease: "power3.in",
           delay: 0.15,
           onComplete: () => {
-            setIsMounted(false);
             document.body.style.overflowX = "";
           },
         });
@@ -97,16 +84,18 @@ export default function Navbar() {
           duration: 0.5,
           ease: "power2.in",
           onComplete: () => {
-            overlayEl.style.display = "none";
+            if (overlayEl) {
+              overlayEl.style.display = "none";
+            }
           },
         });
       }
     });
 
     return () => ctx.revert();
-  }, [isOpen, isMounted]);
+  }, [isOpen]);
 
-  // --- LOGIC 3: ANIMASI KELUAR NAVIGASI DESKTOP ---
+  // --- ANIMASI KELUAR NAVIGASI DESKTOP ---
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -247,64 +236,63 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ===================== MOBILE MENU PANEL ===================== */}
-      {isMounted && (
-        <>
-          <div
-            ref={overlayRef}
-            className="fixed inset-0 bg-black-100/60 z-40 md:hidden"
-            style={{ display: "none" }}
+      {/* ===================== MOBILE MENU PANEL - Always mounted, GSAP handles visibility ===================== */}
+      <>
+        <div
+          ref={overlayRef}
+          className="fixed inset-0 bg-black-100/60 z-40 md:hidden"
+          style={{ display: "none" }}
+          onClick={() => setIsOpen(false)}
+        />
+
+        <div
+          ref={menuRef}
+          className="fixed top-0 right-0 h-full w-[65vw] bg-lime z-50 flex flex-col items-start justify-center gap-12 px-8 md:hidden"
+          style={{ transform: "translateX(100%)" }}
+        >
+          <button
             onClick={() => setIsOpen(false)}
-          />
-
-          <div
-            ref={menuRef}
-            className="fixed top-0 right-0 h-full w-[65vw] bg-lime z-50 flex flex-col items-start justify-center gap-12 px-8 md:hidden"
+            className="menu-item absolute top-8 right-8 text-navy text-2xl hover:scale-110 js-btn-close"
           >
-            <button
-              onClick={() => setIsOpen(false)}
-              className="menu-item absolute top-8 right-8 text-navy text-2xl hover:scale-110 js-btn-close"
-            >
-              <HiX />
-            </button>
-            <Link
-              href="/get-started"
-              onClick={() => setIsOpen(false)}
-              className="menu-item bg-navy text-lime px-4 py-2 absolute top-7 left-8 rounded-full font-bold text-xs hover:scale-105 transition js-btn-getstarted"
-            >
-              Get Started
-            </Link>
+            <HiX />
+          </button>
+          <Link
+            href="/get-started"
+            onClick={() => setIsOpen(false)}
+            className="menu-item bg-navy text-lime px-4 py-2 absolute top-7 left-8 rounded-full font-bold text-xs hover:scale-105 transition js-btn-getstarted"
+          >
+            Get Started
+          </Link>
 
-            <nav className=" flex flex-col gap-4 text-left">
-              {[
-                "HOME",
-                "ABOUT",
-                "SERVICES",
-                "PORTFOLIO",
-                "PRICING",
-                "FAQs",
-                "CONTACT",
-              ].map((item) => (
-                <Link
-                  key={item}
-                  href={item === "HOME" ? "/" : `/${item.toLowerCase()}`}
-                  onClick={() => setIsOpen(false)}
-                  className="menu-item text-black-100 text-3xl font-black hover:text-navy"
-                >
-                  {item}
-                </Link>
-              ))}
-            </nav>
+          <nav className=" flex flex-col gap-4 text-left">
+            {[
+              "HOME",
+              "ABOUT",
+              "SERVICES",
+              "PORTFOLIO",
+              "PRICING",
+              "FAQs",
+              "CONTACT",
+            ].map((item) => (
+              <Link
+                key={item}
+                href={item === "HOME" ? "/" : `/${item.toLowerCase()}`}
+                onClick={() => setIsOpen(false)}
+                className="menu-item text-black-100 text-3xl font-black hover:text-navy"
+              >
+                {item}
+              </Link>
+            ))}
+          </nav>
 
-            <div className="menu-item flex flex-col gap-4 font-light tracking-wide text-left js-services-list">
-              <h1>Web Development</h1>
-              <h1>Mobile Development</h1>
-              <h1>UI/UX Design</h1>
-              <h1>Consulting</h1>
-            </div>
+          <div className="menu-item flex flex-col gap-4 font-light tracking-wide text-left js-services-list">
+            <h1>Web Development</h1>
+            <h1>Mobile Development</h1>
+            <h1>UI/UX Design</h1>
+            <h1>Consulting</h1>
           </div>
-        </>
-      )}
+        </div>
+      </>
     </>
   );
 }
