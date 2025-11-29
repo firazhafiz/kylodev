@@ -44,7 +44,7 @@ export function Footer() {
 
   return (
     <footer className="bg-black-100 text-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 sm:py-16 pt-16 pb-10 lg:py-24">
         {/* ===================== BAGIAN 1: HEADER (Logo & Judul) ===================== */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-10 mb-10">
           {/* Logo */}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/section/Navbar";
 import { Footer } from "@/components/section/Footer";
-
+import ReactLenis, { useLenis } from "lenis/react";
 export const metadata: Metadata = {
   title: "KyloDev - Develope Your Digital Platform",
   description: "Website and App Development Agency",
@@ -24,7 +24,13 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-neuehaas antialiased">{children}</body>
+      <body className="font-neuehaas antialiased">
+        <ReactLenis root>
+          <Navbar />
+          {children}
+          <Footer />
+        </ReactLenis>
+      </body>
     </html>
   );
 }

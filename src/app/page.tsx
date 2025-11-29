@@ -10,15 +10,12 @@ import { Footer } from "@/components/section/Footer";
 export default function Home() {
   return (
     <main className="min-h-screen w-full overflow-hidden">
-      <Navbar />
-      {/* <NewNavbar /> */}
       <Hero />
       <About />
       <Project />
       <Testimoni />
       <Pricing />
       <Contact />
-      <Footer />
     </main>
   );
 }
