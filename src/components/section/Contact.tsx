@@ -5,14 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import {
-  ArrowRight,
-  Mail,
-  MailIcon,
-  MapPin,
-  Phone,
-  PhoneIcon,
-} from "lucide-react";
+import { ArrowRight, Mail, MailIcon, MapPin, Phone, PhoneIcon } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { toast } from "sonner";
@@ -48,37 +41,27 @@ export function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success("Message sent successfully!");
+
     setFormData({ name: "", email: "", message: "" });
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      className="pb-36 pt-20 px-4 bg-white"
-    >
+    <section id="contact" ref={sectionRef} className="pb-36 pt-20 px-4 bg-white">
       <Toaster />
 
       <div className="max-w-7xl mx-auto ">
         <div className="grid md:grid-cols-2 items-center gap-8">
           <div className="max-w-3xl">
             <p className="mb-4">{`- `}Kontak Kami</p>
-            <h2 className="text-3xl font-medium">
-              Hubungi Kami dan Mulai Kolaborasi.
-            </h2>{" "}
+            <h2 className="text-3xl font-medium">Hubungi Kami dan Mulai Kolaborasi.</h2>{" "}
             <p className="mt-2">
               {" "}
-              Jika Anda membutuhkan dukungan, ingin berdiskusi tentang proyek,
-              atau mencari partner untuk bekerja sama, tim kami selalu siap
-              membantu. Kami berkomitmen memberikan layanan cepat, profesional,
-              dan sesuai kebutuhan Anda. Jangan ragu menghubungi kami untuk
-              konsultasi ataupun pertanyaan lainnya.{" "}
+              Jika Anda membutuhkan dukungan, ingin berdiskusi tentang proyek, atau mencari partner untuk bekerja sama, tim kami selalu siap membantu. Kami berkomitmen memberikan layanan cepat, profesional, dan sesuai kebutuhan Anda. Jangan
+              ragu menghubungi kami untuk konsultasi ataupun pertanyaan lainnya.{" "}
             </p>
             {/* Contact Info */}
             <div className="mt-8 space-y-4">
@@ -86,7 +69,7 @@ export function Contact() {
                 <div className="bg-(--color-lime) rounded-full p-3 ">
                   <PhoneIcon />
                 </div>
-                <h3>080 1234 5678</h3>
+                <h3>+62 823-3267-6848</h3>
               </div>
 
               <div className="flex gap-4 items-center">
@@ -99,7 +82,7 @@ export function Contact() {
                 <div className="bg-(--color-lime) rounded-full p-3 ">
                   <MapPin />
                 </div>
-                <h3>Jl Jendral Sudirman, Jakarta</h3>
+                <h3>Surabaya, Indonesia</h3>
               </div>
             </div>
           </div>
@@ -107,29 +90,11 @@ export function Contact() {
           <div>
             <form action="">
               <div ref={formRef} className=" space-y-4">
-                <Input
-                  id="name"
-                  placeholder="Nama Lengkap"
-                  onChange={handleChange}
-                  value={formData.name}
-                  className="h-14 rounded-lg"
-                />
-                <Input
-                  id="email"
-                  placeholder="Email"
-                  onChange={handleChange}
-                  value={formData.email}
-                  className="h-14 rounded-lg"
-                />
-                <Textarea
-                  id="message"
-                  placeholder="Pesan"
-                  onChange={handleChange}
-                  value={formData.message}
-                  className="h-14 rounded-lg"
-                />
+                <Input id="name" placeholder="Nama Lengkap" onChange={handleChange} value={formData.name} className="h-14 rounded-lg" />
+                <Input id="email" placeholder="Email" onChange={handleChange} value={formData.email} className="h-14 rounded-lg" />
+                <Textarea id="message" placeholder="Pesan" onChange={handleChange} value={formData.message} className="h-24 rounded-lg" />
                 <Button className="bg-black-100 rounded-full flex justify-between gap-2 p-0 h-12 cursor-pointer border-0">
-                  <div className="bg-white rounded-full m-2 p-2  flex  items-center">
+                  <div className="bg-white rounded-full m-2 p-2  flex  items-center ">
                     <ArrowRight />
                   </div>
                   <div className="text-(--color-navy) bg-(--color-lime) h-full rounded-full px-8  flex items-center">
