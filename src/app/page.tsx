@@ -6,6 +6,7 @@ import { Contact } from "@/components/section/Contact";
 import Testimoni from "@/components/section/Testimoni";
 import Navbar from "@/components/section/Navbar";
 import { Footer } from "@/components/section/Footer";
+import Services from "@/components/section/Services";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <About />
       <Project />
+      <Services />
       <Testimoni />
       <Pricing />
       <Contact />

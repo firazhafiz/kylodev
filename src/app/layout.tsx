@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/section/Navbar";
 import { Footer } from "@/components/section/Footer";
-import ReactLenis, { useLenis } from "lenis/react";
+import ReactLenis from "lenis/react";
+import ScrollToTop from "@/components/moleculs/ScrollToTop";
 export const metadata: Metadata = {
   title: "KyloDev - Develope Your Digital Platform",
   description: "Website and App Development Agency",
@@ -29,6 +30,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <ScrollToTop />
         </ReactLenis>
       </body>
     </html>

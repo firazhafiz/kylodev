@@ -4,7 +4,6 @@ import customer1 from "../../../public/images/testimoni1.avif";
 import customer2 from "../../../public/images/testimoni2.avif";
 import customer3 from "../../../public/images/testimoni3.avif";
 
-
 export default function Testimoni() {
   const data = [
     {
@@ -41,7 +40,7 @@ export default function Testimoni() {
           {data.map((item, index) => (
             <div
               key={index}
-              className="bg-lime/70 rounded-2xl  flex flex-col gap-4 justify-between items-start overflow-hidden "
+              className="bg-lime/60 rounded-2xl  flex flex-col gap-4 justify-between items-start overflow-hidden "
             >
               <div className="p-6 max-w-[280px]">
                 <QuoteIcon className="text-navy mb-4" />

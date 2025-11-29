@@ -140,13 +140,15 @@ export function Contact() {
             </form>
           </div>
         </div>
-        <div className=" rounded-xl overflow-hidden mt-16">
+        <div className="rounded-xl overflow-hidden mt-16">
           <iframe
-            className="rounded-2xl w-full h-[300px] md:h-[450px]"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.33320107407735!2d112.7183000450798!3d-7.316640079974779!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb7cfcd5f739%3A0xf4d3f3f67ffddcb7!2sJl.%20Jambangan%20Baru%20II%20No.15%2C%20RT.001%2FRW.04%2C%20Jambangan%2C%20Kec.%20Jambangan%2C%20Surabaya%2C%20Jawa%20Timur%2060232!5e0!3m2!1sid!2sid!4v1764061499583!5m2!1sid!2sid"
-            style={{ border: 0 }}
-            loading="lazy"
+            width="100%"
+            height="450"
+            className="w-full h-[300px] md:h-[450px] border-0"
+            loading="eager"
+            allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.33320107407735!2d112.7183000450798!3d-7.316640079974779!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb7cfcd5f739%3A0xf4d3f3f67ffddcb7!2sJl.%20Jambangan%20Baru%20II%20No.15%2C%20RT.001%2FRW.04%2C%20Jambangan%2C%20Kec.%20Jambangan%2C%20Surabaya%2C%20Jawa%20Timur%2060232!5e0!3m2!1sid!2sid!4v1764061499583!5m2!1sid!2sid"
           />
         </div>
       </div>

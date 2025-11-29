@@ -6,8 +6,10 @@ import { useState, useRef, useEffect } from "react";
 import { HiMenu, HiX, HiChevronDown } from "react-icons/hi";
 import gsap from "gsap";
 import { useRouter } from "next/navigation";
+import { useLenis } from "lenis/react";
 
 export default function Navbar() {
+  const lenis = useLenis();
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -147,15 +149,27 @@ export default function Navbar() {
               HOME
             </Link>
             <Link
-              href="/about"
-              onClick={(e) => handleLinkClick(e, "/about")}
+              href="#about"
+              onClick={(e) => {
+                e.preventDefault();
+                lenis?.scrollTo("#about", {
+                  duration: 2.5,
+                  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                });
+              }}
               className="text-gray-100 font-light tracking-wider text-sm hover:text-lime transition"
             >
               ABOUT
             </Link>
             <Link
-              href="/services"
-              onClick={(e) => handleLinkClick(e, "/services")}
+              href="#services"
+              onClick={(e) => {
+                e.preventDefault();
+                lenis?.scrollTo("#services", {
+                  duration: 2.5,
+                  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                });
+              }}
               className="text-gray-100 font-light tracking-wider text-sm hover:text-lime transition"
             >
               SERVICES
@@ -207,8 +221,14 @@ export default function Navbar() {
               </div>
             </div>
             <Link
-              href="/contact"
-              onClick={(e) => handleLinkClick(e, "/contact")}
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                lenis?.scrollTo("#contact", {
+                  duration: 2.5,
+                  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                });
+              }}
               className="text-gray-100 font-light tracking-wider text-sm hover:text-lime transition"
             >
               CONTACT
@@ -282,7 +302,7 @@ export default function Navbar() {
               "HOME",
               "ABOUT",
               "SERVICES",
-              "PORTFOLIO",
+              "PROJECTS",
               "PRICING",
               "FAQs",
               "CONTACT",

@@ -1,5 +1,13 @@
 import { Star, Sparkles, ShoppingBag, BuildingIcon } from "lucide-react";
 import { CgSmartphone } from "react-icons/cg";
+import {
+  Globe,
+  ShieldCheck,
+  MailCheck,
+  Smartphone,
+  SearchCheck,
+  BarChart4,
+} from "lucide-react";
 
 export interface Project {
   id: number;
@@ -16,7 +24,8 @@ export const projects: Project[] = [
   {
     id: 1,
     name: "Diary Food",
-    description: "A website used as inspiration for finding various local and international recipes for food and drinks.",
+    description:
+      "A website used as inspiration for finding various local and international recipes for food and drinks.",
     features: [
       "Manajemen resep melalui dashboard admin",
       "Halaman pengguna untuk eksplorasi dan personalisasi",
@@ -40,8 +49,15 @@ export const projects: Project[] = [
   {
     id: 2,
     name: "Arenaku",
-    description: "Website booking lapangan online yang memudahkan pengguna dalam mencari lapangan yang sesuai dengan kebutuhan dan waktu.",
-    features: ["Dashboard admin untuk pengelolaan data lapangan", "Sistem manajemen jadwal dan ketersediaan lapangan", "Otentikasi Google", "Integrasi pembayaran Midtrans", "Tampilan responsif dan mudah digunakan"],
+    description:
+      "Website booking lapangan online yang memudahkan pengguna dalam mencari lapangan yang sesuai dengan kebutuhan dan waktu.",
+    features: [
+      "Dashboard admin untuk pengelolaan data lapangan",
+      "Sistem manajemen jadwal dan ketersediaan lapangan",
+      "Otentikasi Google",
+      "Integrasi pembayaran Midtrans",
+      "Tampilan responsif dan mudah digunakan",
+    ],
     preview: "",
     image: "/images/arenaku.webp",
     frameworks: [
@@ -53,8 +69,13 @@ export const projects: Project[] = [
   {
     id: 3,
     name: "Sewa Mobilin",
-    description: "Website rental mobil yang memudahkan pengguna dalam mencari mobil yang sesuai dengan kebutuhan.",
-    features: ["Sistem pencarian mobil berdasarkan kategori dan kebutuhan", "Integrasi WhatsApp untuk pemesanan langsung", "Desain responsif dan mobile-friendly"],
+    description:
+      "Website rental mobil yang memudahkan pengguna dalam mencari mobil yang sesuai dengan kebutuhan.",
+    features: [
+      "Sistem pencarian mobil berdasarkan kategori dan kebutuhan",
+      "Integrasi WhatsApp untuk pemesanan langsung",
+      "Desain responsif dan mobile-friendly",
+    ],
     preview: "https://sewa-mobilin.vercel.app/",
     image: "/images/sewa-mobilin.webp",
     frameworks: [
@@ -67,8 +88,14 @@ export const projects: Project[] = [
   {
     id: 4,
     name: "Bank Sha",
-    description: "Aplikasi e-wallet yang memudahkan pengguna dalam melakukan transaksi dan mengelola saldo.",
-    features: ["Melakukan transaksi (Top up, transfer, pembayaran)", "Manajemen saldo dan riwayat transaksi", "Integrasi pembayaran via Midtrans", "UI responsif dan modern"],
+    description:
+      "Aplikasi e-wallet yang memudahkan pengguna dalam melakukan transaksi dan mengelola saldo.",
+    features: [
+      "Melakukan transaksi (Top up, transfer, pembayaran)",
+      "Manajemen saldo dan riwayat transaksi",
+      "Integrasi pembayaran via Midtrans",
+      "UI responsif dan modern",
+    ],
     preview: "",
     image: "/images/bank-sha.webp",
     frameworks: [
@@ -82,7 +109,13 @@ export const projects: Project[] = [
     id: 5,
     name: "Sahabat Buku",
     description: "Aplikasi peminjaman buku sederhana.",
-    features: ["Otentikasi menggunakan Firebase Auth", "Peminjaman buku secara real-time", "Pengembalian buku & update stok otomatis", "Riwayat peminjaman lengkap", "Tampilan Responsive"],
+    features: [
+      "Otentikasi menggunakan Firebase Auth",
+      "Peminjaman buku secara real-time",
+      "Pengembalian buku & update stok otomatis",
+      "Riwayat peminjaman lengkap",
+      "Tampilan Responsive",
+    ],
     preview: "",
     image: "/images/sahabat-buku.webp",
     frameworks: [
@@ -94,8 +127,13 @@ export const projects: Project[] = [
   {
     id: 6,
     name: "Angkutin",
-    description: "A smart waste management system designed to optimize waste collection and monitoring through intelligent technology.",
-    features: ["Manajemen pengangkutan sampah berbasis data", "Pelacakan status dan jadwal pengambilan", "Tampilan responsif dengan UI modern"],
+    description:
+      "A smart waste management system designed to optimize waste collection and monitoring through intelligent technology.",
+    features: [
+      "Manajemen pengangkutan sampah berbasis data",
+      "Pelacakan status dan jadwal pengambilan",
+      "Tampilan responsif dengan UI modern",
+    ],
     preview: "https://angkutin-omega.vercel.app/",
     image: "/images/angkutin.webp",
     frameworks: [
@@ -109,8 +147,14 @@ export const projects: Project[] = [
   {
     id: 7,
     name: "Nesavent",
-    description: "Landing page website for an event management platform at Surabaya State University.",
-    features: ["Sistem registrasi event dan pembelian tiket", "Integrasi pembayaran online", "Manajemen event, jadwal, dan kapasitas peserta", "Landing page dengan UI modern"],
+    description:
+      "Landing page website for an event management platform at Surabaya State University.",
+    features: [
+      "Sistem registrasi event dan pembelian tiket",
+      "Integrasi pembayaran online",
+      "Manajemen event, jadwal, dan kapasitas peserta",
+      "Landing page dengan UI modern",
+    ],
     preview: "https://nesavent.vercel.app/",
     image: "/images/nesavent.webp",
     frameworks: [
@@ -122,7 +166,8 @@ export const projects: Project[] = [
   {
     id: 8,
     name: "Sadari 4Life",
-    description: "A hypertension screening website that allows users to perform self-assessments through interactive tests for early detection and management.",
+    description:
+      "A hypertension screening website that allows users to perform self-assessments through interactive tests for early detection and management.",
     features: [
       "Tes pemeriksaan hipertensi berbasis pertanyaan interaktif",
       "Perhitungan otomatis & tampilan hasil diagnosis",
@@ -146,16 +191,34 @@ export const pricingPlans = [
   {
     name: "Website Basic",
     price: "750k",
-    description: "Cocok untuk UMKM yang baru memulai digitalisasi dan butuh website sederhana.",
-    features: ["1 Halaman (Landing Page)", "Gratis Domain & Hosting 1 Tahun", "Basic SEO", "Desain Responsif", "WhatsApp Chat", "2x Revisi"],
+    description:
+      "Cocok untuk UMKM yang baru memulai digitalisasi dan butuh website sederhana.",
+    features: [
+      "1 Halaman (Landing Page)",
+      "Gratis Domain & Hosting 1 Tahun",
+      "Basic SEO",
+      "Desain Responsif",
+      "WhatsApp Chat",
+      "2x Revisi",
+    ],
     icon: Sparkles,
   },
 
   {
     name: "Premium",
     price: "1,5 – 2 Juta",
-    description: "Pilihan ideal untuk bisnis yang butuh lebih banyak halaman dan fitur profesional.",
-    features: ["5 Halaman", "Gratis Domain & Hosting 1 Tahun", "Desain Responsif", "SEO Friendly", "Email Profesional", "WhatsApp Chat", "Integrasi Social Media", "3x Revisi"],
+    description:
+      "Pilihan ideal untuk bisnis yang butuh lebih banyak halaman dan fitur profesional.",
+    features: [
+      "5 Halaman",
+      "Gratis Domain & Hosting 1 Tahun",
+      "Desain Responsif",
+      "SEO Friendly",
+      "Email Profesional",
+      "WhatsApp Chat",
+      "Integrasi Social Media",
+      "3x Revisi",
+    ],
     popular: true,
     icon: Star,
   },
@@ -163,15 +226,27 @@ export const pricingPlans = [
   {
     name: "Website Business",
     price: "2 – 3,5 Juta",
-    description: "Direkomendasikan untuk perusahaan yang membutuhkan website skala bisnis.",
-    features: ["10 – 15 Halaman", "Gratis Domain & Hosting 1 Tahun", "Desain Responsif", "SEO Friendly", "Hosting pribadi 25GB", "WhatsApp Chat", "Email Profesional", "Integrasi Social Media", "4x Revisi"],
+    description:
+      "Direkomendasikan untuk perusahaan yang membutuhkan website skala bisnis.",
+    features: [
+      "10 – 15 Halaman",
+      "Gratis Domain & Hosting 1 Tahun",
+      "Desain Responsif",
+      "SEO Friendly",
+      "Hosting pribadi 25GB",
+      "WhatsApp Chat",
+      "Email Profesional",
+      "Integrasi Social Media",
+      "4x Revisi",
+    ],
     icon: BuildingIcon,
   },
 
   {
     name: "Web E-Commerce",
     price: "3 – 5 Juta",
-    description: "Untuk bisnis yang ingin menjual produk secara online dengan fitur modern.",
+    description:
+      "Untuk bisnis yang ingin menjual produk secara online dengan fitur modern.",
     features: [
       "10+ Halaman",
       "Gratis Domain & Hosting 1 Tahun",
@@ -191,8 +266,71 @@ export const pricingPlans = [
   {
     name: "Aplikasi Mobile",
     price: "5 – 25 Juta",
-    description: "Solusi aplikasi mobile hybrid (Flutter) untuk bisnis yang ingin berkembang pesat.",
-    features: ["Desain UI/UX", "Aplikasi Android (iOS opsional)", "API & Backend", "Auth & Database", "Dashboard Admin", "Integrasi Payment Gateway (opsional)", "Push Notification", "Deployment ke Play Store", "3x Revisi"],
+    description:
+      "Solusi aplikasi mobile hybrid (Flutter) untuk bisnis yang ingin berkembang pesat.",
+    features: [
+      "Desain UI/UX",
+      "Aplikasi Android (iOS opsional)",
+      "API & Backend",
+      "Auth & Database",
+      "Dashboard Admin",
+      "Integrasi Payment Gateway (opsional)",
+      "Push Notification",
+      "Deployment ke Play Store",
+      "3x Revisi",
+    ],
     icon: CgSmartphone,
+  },
+];
+
+export interface ServiceFeature {
+  id: number;
+  title: string;
+  description: string;
+  icon: any;
+}
+
+export const serviceFeatures: ServiceFeature[] = [
+  {
+    id: 1,
+    title: "Domain + Hosting Premium Gratis 1 Tahun",
+    description:
+      "Dapatkan domain .com/.co.id + hosting 10GB NVMe SSD tanpa biaya tambahan selama setahun penuh.",
+    icon: Globe,
+  },
+  {
+    id: 2,
+    title: "SSL Certificate & IP Dedicated",
+    description:
+      "Website Anda dilindungi enkripsi SSL kelas enterprise + IP khusus untuk keamanan dan kecepatan maksimal.",
+    icon: ShieldCheck,
+  },
+  {
+    id: 3,
+    title: "Email Profesional Custom Domain",
+    description:
+      "Email bisnis resmi seperti nama@perusahaan Anda (unlimited alias, akses webmail & mobile).",
+    icon: MailCheck,
+  },
+  {
+    id: 4,
+    title: "100% Mobile Responsive",
+    description:
+      "Tampilan sempurna di HP, tablet, hingga desktop — pengunjung nyaman dari perangkat apa pun.",
+    icon: Smartphone,
+  },
+  {
+    id: 5,
+    title: "Optimasi SEO On-Page Terbaik",
+    description:
+      "Struktur kode, meta tag, kecepatan loading, dan schema markup sudah dioptimalkan agar mudah nangkring di Google.",
+    icon: SearchCheck,
+  },
+  {
+    id: 6,
+    title: "Dashboard Statistik Pengunjung Real-time",
+    description:
+      "Pantau jumlah pengunjung, asal kota, halaman favorit, dan perilaku user langsung dari dashboard website Anda.",
+    icon: BarChart4,
   },
 ];

@@ -11,10 +11,13 @@ import {
 } from "react-icons/si";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
+import { useLenis } from "lenis/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
+  const lenis = useLenis();
   const containerRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -121,13 +124,20 @@ export default function Hero() {
           >
             Our Projects
           </a>
-          <a
-            href="#"
-            className="bg-transparent border border-lime text-gray-100 px-6 py-3  text-sm  rounded-full font-bold hover:bg-lime hover:text-black-100 transition flex items-center gap-3 opacity-0"
+          <Link
+            href="#about"
+            onClick={(e) => {
+              e.preventDefault();
+              lenis?.scrollTo("#about", {
+                duration: 2.5,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+              });
+            }}
+            className="bg-transparent border border-lime text-gray-100 px-6 py-3 text-sm rounded-full font-bold hover:bg-lime hover:text-black-100 transition flex items-center gap-3"
           >
             <HiArrowRight className="w-4 h-4" />
             About Us
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -53,7 +53,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="section-padding bg-white flex justify-center items-center min-h-screen sm:pb-40 sm:pt-30 py-20 px-4 "
+      className="section-padding bg-white flex justify-center items-center min-h-screen sm:pb-36 sm:pt-24 py-20 px-4 "
     >
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
