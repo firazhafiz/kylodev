@@ -16,7 +16,19 @@ export default function Navbar() {
   const overlayRef = useRef<HTMLDivElement>(null);
   const desktopNavRef = useRef<HTMLElement>(null);
 
-  // --- ANIMASI GSAP (MOBILE) - Simplified without isMounted ---
+  // --- FIX 1: MENGATUR SCROLL UTAMA PADA BODY (Vertical & Horizontal) ---
+  useEffect(() => {
+    // Tambahkan kontrol untuk overflow-y (vertical scroll)
+    document.body.style.overflowY = isOpen ? "hidden" : "";
+    document.body.style.overflowX = isOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflowY = "";
+      document.body.style.overflowX = "";
+    };
+  }, [isOpen]);
+
+  // --- ANIMASI GSAP (MOBILE) - Tetap menggunakan GSAP untuk animasi ---
   useEffect(() => {
     const menuEl = menuRef.current;
     const overlayEl = overlayRef.current;
@@ -39,7 +51,7 @@ export default function Navbar() {
     const ctx = gsap.context(() => {
       if (isOpen) {
         // === BUKA MENU ===
-        document.body.style.overflowX = "hidden";
+        // Note: document.body scroll control dipindahkan ke useEffect terpisah di atas
 
         // Set initial state
         gsap.set(menuEl, { x: "100%" });
@@ -74,9 +86,7 @@ export default function Navbar() {
           duration: 0.65,
           ease: "power3.in",
           delay: 0.15,
-          onComplete: () => {
-            document.body.style.overflowX = "";
-          },
+          // Removed onComplete body style change, handled by dedicated useEffect
         });
 
         gsap.to(overlayEl, {
@@ -236,7 +246,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ===================== MOBILE MENU PANEL - Always mounted, GSAP handles visibility ===================== */}
+      {/* ===================== MOBILE MENU PANEL - FIX 2: Tambahkan overflow-y-auto ===================== */}
       <>
         <div
           ref={overlayRef}
@@ -247,9 +257,11 @@ export default function Navbar() {
 
         <div
           ref={menuRef}
-          className="fixed top-0 right-0 h-full w-[65vw] bg-lime z-50 flex flex-col items-start justify-center gap-12 px-8 md:hidden"
+          // FIX: Tambahkan 'overflow-y-auto' dan perbarui padding vertikal agar konten tidak mepet
+          className="fixed top-0 right-0 h-full w-[65vw] bg-lime z-50 flex flex-col justify-start gap-10 px-8 py-20 md:hidden overflow-y-auto"
           style={{ transform: "translateX(100%)" }}
         >
+          {/* Posisi tombol dan link Get Started diubah agar sesuai dengan py-20 */}
           <button
             onClick={() => setIsOpen(false)}
             className="menu-item absolute top-8 right-8 text-navy text-2xl hover:scale-110 js-btn-close"
@@ -264,7 +276,8 @@ export default function Navbar() {
             Get Started
           </Link>
 
-          <nav className=" flex flex-col gap-4 text-left">
+          {/* Navigation Links - Mulai setelah header dan tombol Get Started */}
+          <nav className=" flex flex-col gap-4 text-left mt-10">
             {[
               "HOME",
               "ABOUT",
