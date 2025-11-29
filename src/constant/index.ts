@@ -283,14 +283,7 @@ export const pricingPlans = [
   },
 ];
 
-export interface ServiceFeature {
-  id: number;
-  title: string;
-  description: string;
-  icon: any;
-}
-
-export const serviceFeatures: ServiceFeature[] = [
+export const serviceFeatures = [
   {
     id: 1,
     title: "Domain + Hosting Premium Gratis 1 Tahun",
