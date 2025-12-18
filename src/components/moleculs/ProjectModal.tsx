@@ -76,24 +76,6 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             </ul>
           </div>
 
-          {/* Tech Stack */}
-          <div>
-            <h3 className="text-sm font-semibold text-navy  tracking-wide mb-3">
-              Tech Stack
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {project.frameworks.map((fw) => (
-                <Badge
-                  key={fw.id}
-                  variant="secondary"
-                  className="px-4 py-1.5 text-sm tracking-wider font-light bg-black-100/10 text-accent-foreground hover:bg-accent/30 border-none"
-                >
-                  {fw.name}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
           {/* Action Button */}
           {project.preview && (
             <Button
