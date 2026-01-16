@@ -23,7 +23,7 @@ export default function Navbar() {
   const desktopNavRef = useRef<HTMLElement>(null);
 
   // GSAP Context Ref to keep it persistent
-  const ctx = useRef<gsap.Context>();
+  const ctx = useRef<gsap.Context | null>(null);
 
   // Reset Navbar animation on route change
   useEffect(() => {
