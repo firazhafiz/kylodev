@@ -4,10 +4,23 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Star } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { pricingPlans } from "@/constant";
+import { getIcon } from "@/lib/icon-map";
 
+interface PricingPlan {
+  id: number;
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+  popular: boolean;
+  icon_name: string;
+}
 
-export default function Pricing() {
+interface PricingProps {
+  plans: PricingPlan[];
+}
+
+export default function Pricing({ plans }: PricingProps) {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -73,8 +86,8 @@ export default function Pricing() {
           ref={cardsRef}
           className="grid sm:grid-cols-2 lg:grid-cols-3   gap-6 lg:gap-8 "
         >
-          {pricingPlans.map((plan, index) => {
-            const Icon = plan.icon;
+          {plans.map((plan, index) => {
+            const Icon = getIcon(plan.icon_name);
             return (
               <Card
                 key={index}

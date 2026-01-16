@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  features    String[] @default([])
+  preview     String?
+  image       String?
+  priority    Boolean  @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  @@map("projects")
+}
+
+model Testimonial {
+  id         Int      @id @default(autoincrement())
+  name       String
+  photo      String?
+  review     String
+  created_at DateTime @default(now())
+
+  @@map("testimonials")
+}
+
+model PricingPlan {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       String
+  description String?
+  features    String[] @default([])
+  popular     Boolean  @default(false)
+  icon_name   String?
+  sort_order  Int      @default(0)
+
+  @@map("pricing_plans")
+}
+
+model ServiceFeature {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  icon_name   String?
+  sort_order  Int     @default(0)
+
+  @@map("service_features")
+}
+
+model SiteSettings {
+  key        String   @id
+  value      Json
+  updated_at DateTime @default(now())
+
+  @@map("site_settings")
+}

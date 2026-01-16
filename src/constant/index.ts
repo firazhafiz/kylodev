@@ -1,6 +1,8 @@
-import { Star, Sparkles, ShoppingBag, BuildingIcon } from "lucide-react";
-import { CgSmartphone } from "react-icons/cg";
 import {
+  Star,
+  Sparkles,
+  ShoppingBag,
+  BuildingIcon,
   Globe,
   ShieldCheck,
   MailCheck,
@@ -8,6 +10,7 @@ import {
   SearchCheck,
   BarChart4,
 } from "lucide-react";
+import { CgSmartphone } from "react-icons/cg";
 
 export interface Project {
   id: number;
@@ -203,8 +206,8 @@ export const pricingPlans = [
       "2x Revisi",
     ],
     icon: Sparkles,
+    icon_name: "Sparkles",
   },
-
   {
     name: "Premium",
     price: "1,5 – 2 Juta",
@@ -222,8 +225,8 @@ export const pricingPlans = [
     ],
     popular: true,
     icon: Star,
+    icon_name: "Star",
   },
-
   {
     name: "Website Business",
     price: "2 – 3,5 Juta",
@@ -241,8 +244,8 @@ export const pricingPlans = [
       "4x Revisi",
     ],
     icon: BuildingIcon,
+    icon_name: "BuildingIcon",
   },
-
   {
     name: "Web E-Commerce",
     price: "3 – 5 Juta",
@@ -262,8 +265,8 @@ export const pricingPlans = [
       "3x Revisi",
     ],
     icon: ShoppingBag,
+    icon_name: "ShoppingBag",
   },
-
   {
     name: "Aplikasi Mobile",
     price: "5 – 25 Juta",
@@ -281,6 +284,7 @@ export const pricingPlans = [
       "3x Revisi",
     ],
     icon: CgSmartphone,
+    icon_name: "CgSmartphone",
   },
 ];
 
@@ -291,6 +295,7 @@ export const serviceFeatures = [
     description:
       "Dapatkan domain .com/.co.id + hosting 10GB NVMe SSD tanpa biaya tambahan selama setahun penuh.",
     icon: Globe,
+    icon_name: "Globe",
   },
   {
     id: 2,
@@ -298,6 +303,7 @@ export const serviceFeatures = [
     description:
       "Website Anda dilindungi enkripsi SSL kelas enterprise + IP khusus untuk keamanan dan kecepatan maksimal.",
     icon: ShieldCheck,
+    icon_name: "ShieldCheck",
   },
   {
     id: 3,
@@ -305,6 +311,7 @@ export const serviceFeatures = [
     description:
       "Email bisnis resmi seperti nama@perusahaan Anda (unlimited alias, akses webmail & mobile).",
     icon: MailCheck,
+    icon_name: "MailCheck",
   },
   {
     id: 4,
@@ -312,6 +319,7 @@ export const serviceFeatures = [
     description:
       "Tampilan sempurna di HP, tablet, hingga desktop — pengunjung nyaman dari perangkat apa pun.",
     icon: Smartphone,
+    icon_name: "Smartphone",
   },
   {
     id: 5,
@@ -319,6 +327,7 @@ export const serviceFeatures = [
     description:
       "Struktur kode, meta tag, kecepatan loading, dan schema markup sudah dioptimalkan agar mudah nangkring di Google.",
     icon: SearchCheck,
+    icon_name: "SearchCheck",
   },
   {
     id: 6,
@@ -326,5 +335,27 @@ export const serviceFeatures = [
     description:
       "Pantau jumlah pengunjung, asal kota, halaman favorit, dan perilaku user langsung dari dashboard website Anda.",
     icon: BarChart4,
+    icon_name: "BarChart4",
+  },
+];
+
+export const testimonials = [
+  {
+    name: "Rama Pratama",
+    photo: "/images/testimoni2.avif",
+    review:
+      "Pelayanan sangat memuaskan. Website ini membantu saya menemukan informasi dengan cepat.",
+  },
+  {
+    name: "Dewi Anjani",
+    photo: "/images/testimoni1.avif",
+    review:
+      "Desainnya modern dan responsif. Saya sangat merekomendasikannya untuk kebutuhan profesional.",
+  },
+  {
+    name: "Fajar Nugroho",
+    photo: "/images/testimoni3.avif",
+    review:
+      "Navigasi jelas dan fitur-fiturnya lengkap. Pengalaman pengguna terasa sangat nyaman.",
   },
 ];

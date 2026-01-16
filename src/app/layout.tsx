@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/section/Navbar";
-import { Footer } from "@/components/section/Footer";
 import ReactLenis from "lenis/react";
-import ScrollToTop from "@/components/moleculs/ScrollToTop";
+
 export const metadata: Metadata = {
   title: "KyloDev - Develope Your Digital Platform",
   description: "Website and App Development Agency",
@@ -26,12 +24,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-neuehaas antialiased">
-        <ReactLenis root>
-          <Navbar />
-          {children}
-          <Footer />
-          <ScrollToTop />
-        </ReactLenis>
+        <ReactLenis root>{children}</ReactLenis>
       </body>
     </html>
   );

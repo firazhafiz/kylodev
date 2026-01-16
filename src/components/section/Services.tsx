@@ -1,11 +1,22 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { serviceFeatures } from "@/constant"; // sesuaikan path
+import { getIcon } from "@/lib/icon-map";
 
-const Features: React.FC = () => {
+interface ServiceFeature {
+  id: number;
+  title: string;
+  description: string;
+  icon_name: string;
+}
+
+interface FeaturesProps {
+  features: ServiceFeature[];
+}
+
+const Features: React.FC<FeaturesProps> = ({ features }) => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
-  const [displayText, setDisplayText] = useState(""); // satu state saja
+  const [displayText, setDisplayText] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const fullText = "Fitur Premium untuk\nKesuksesan Digital Anda";
@@ -21,14 +32,14 @@ const Features: React.FC = () => {
             if (i > fullText.length) {
               clearInterval(timer);
             }
-          }, 40); // SUPER CEPAT & SMOOTH (40ms)
+          }, 40);
 
           return () => clearInterval(timer);
         }
       },
       {
-        threshold: 0.1, // mulai saat section baru muncul 20% → jauh lebih awal
-        rootMargin: "0px 0px -100px 0px", // mulai lebih cepat lagi
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px",
       }
     );
 
@@ -36,7 +47,6 @@ const Features: React.FC = () => {
     return () => observer.disconnect();
   }, [displayText]);
 
-  // Pisahkan text biasa & text biru berdasarkan "\n"
   const lines = displayText.split("\n");
   const firstLine = lines[0] || "";
   const secondLine = lines[1] || "";
@@ -48,7 +58,6 @@ const Features: React.FC = () => {
       className="relative py-28 px-4 overflow-hidden bg-cream"
     >
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
         <div className="text-center mb-20">
           <div className="inline-block mb-4">
             <span className="px-4 py-2 rounded-full sm:text-sm text-xs font-semibold tracking-wide uppercase bg-lime text-black-100">
@@ -56,7 +65,6 @@ const Features: React.FC = () => {
             </span>
           </div>
 
-          {/* TYPEWRITER – HANYA SATU TEMPAT MENULIS */}
           <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-black-100">
             {firstLine}
             {secondLine ? (
@@ -65,7 +73,6 @@ const Features: React.FC = () => {
                 <span className="text-navy">{secondLine}</span>
               </>
             ) : (
-              // Cursor berkedip hanya muncul kalau belum selesai
               displayText.includes("untuk") && (
                 <span className="inline-block w-1 h-12 bg-navy ml-2 animate-pulse align-middle" />
               )
@@ -79,10 +86,9 @@ const Features: React.FC = () => {
           </p>
         </div>
 
-        {/* === CARD FEATURES (TIDAK BERUBAH SAMA SEKALI) === */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {serviceFeatures.map((feature, index) => {
-            const IconComponent = feature.icon;
+          {features.map((feature, index) => {
+            const IconComponent = getIcon(feature.icon_name);
             const isHovered = hoveredId === feature.id;
 
             return (

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { projects, Project } from "@/constant";
+import { Project } from "@/constant";
 import ProjectCard from "@/components/moleculs/ProjectCard";
 import ProjectModal from "@/components/moleculs/ProjectModal";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LandingProjectsSection = () => {
+interface LandingProjectsSectionProps {
+  projects: Project[];
+}
+
+const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -85,7 +89,9 @@ const LandingProjectsSection = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [priorityProjects]); // Depend on projects
+
+  if (priorityProjects.length === 0) return null;
 
   return (
     <section

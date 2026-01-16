@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { projects, Project } from "@/constant";
 import ProjectCard from "@/components/moleculs/ProjectCard";
 import ProjectModal from "@/components/moleculs/ProjectModal";
+import { Project } from "@/constant";
 
-const AllProjectsSection = () => {
+export default function ProjectsClientPage({
+  projects,
+}: {
+  projects: Project[];
+}) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
@@ -25,14 +29,15 @@ const AllProjectsSection = () => {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <ProjectCard
-              bgColor="bg-black-100"
-              titleColor="text-white"
-              descriptionColor="text-white"
-              key={project.id}
-              project={project}
-              onDetailClick={() => setSelectedProject(project)}
-            />
+            <div key={project.id}>
+              <ProjectCard
+                bgColor="bg-black-100"
+                titleColor="text-white"
+                descriptionColor="text-white"
+                project={project}
+                onDetailClick={() => setSelectedProject(project)}
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -46,6 +51,4 @@ const AllProjectsSection = () => {
       )}
     </section>
   );
-};
-
-export default AllProjectsSection;
+}
