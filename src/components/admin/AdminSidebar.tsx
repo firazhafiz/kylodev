@@ -63,7 +63,6 @@ export default function AdminSidebar({ secret }: { secret: string }) {
         {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
 
-      {/* Overlay for mobile */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
@@ -75,7 +74,7 @@ export default function AdminSidebar({ secret }: { secret: string }) {
       <aside
         className={cn(
           "fixed top-0 left-0 h-full w-64 bg-black-100 text-white flex flex-col z-40 transition-transform duration-300 ease-in-out md:translate-x-0",
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className="p-6 border-b border-gray-800 flex justify-between items-center">
@@ -96,7 +95,7 @@ export default function AdminSidebar({ secret }: { secret: string }) {
                   "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors group",
                   isActive
                     ? "bg-white/10 text-white"
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                    : "text-gray-400 hover:text-white hover:bg-white/5",
                 )}
               >
                 <item.icon
@@ -104,7 +103,7 @@ export default function AdminSidebar({ secret }: { secret: string }) {
                     "w-5 h-5",
                     isActive
                       ? "text-lime-primary"
-                      : "group-hover:text-lime-primary"
+                      : "group-hover:text-lime-primary",
                   )}
                 />
                 <span>{item.label}</span>
