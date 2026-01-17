@@ -34,6 +34,10 @@ export default function ProjectsClient({
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Delete Modal State
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
+
   // Form State
   const [formData, setFormData] = useState({
     name: "",
@@ -93,7 +97,10 @@ export default function ProjectsClient({
         body: JSON.stringify(data),
       });
 
-      if (!res.ok) throw new Error("Failed to save project");
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "Failed to save project");
+      }
 
       const savedProject = await res.json();
 
@@ -110,15 +117,24 @@ export default function ProjectsClient({
       setIsModalOpen(false);
       router.refresh();
     } catch (error) {
-      toast.error("Error saving project");
+      toast.error(
+        error instanceof Error ? error.message : "Error saving project"
+      );
       console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this project?")) return;
+  const confirmDelete = (project: Project) => {
+    setProjectToDelete(project);
+    setDeleteModalOpen(true);
+  };
+
+  const executeDelete = async () => {
+    if (!projectToDelete) return;
+    const id = projectToDelete.id;
+    setIsLoading(true);
 
     try {
       const res = await fetch(`/api/projects/${id}`, {
@@ -126,13 +142,22 @@ export default function ProjectsClient({
         headers: { "x-admin-secret": secret },
       });
 
-      if (!res.ok) throw new Error("Failed to delete");
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "Failed to delete");
+      }
 
       setProjects(projects.filter((p) => p.id !== id));
       toast.success("Project deleted");
       router.refresh();
+      setDeleteModalOpen(false);
+      setProjectToDelete(null);
     } catch (error) {
-      toast.error("Error deleting project");
+      toast.error(
+        error instanceof Error ? error.message : "Error deleting project"
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -220,9 +245,9 @@ export default function ProjectsClient({
                     <Pencil className="h-4 w-4" />
                   </Button>
                   <Button
-                    variant="destructive"
                     size="sm"
-                    onClick={() => handleDelete(project.id)}
+                    className="bg-red-500 hover:bg-red-600 text-white border-0"
+                    onClick={() => confirmDelete(project)}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -343,6 +368,38 @@ export default function ProjectsClient({
                 </Button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {deleteModalOpen && projectToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">Delete Project?</h3>
+              <p className="text-gray-500">
+                Are you sure you want to delete{" "}
+                <strong>{projectToDelete.name}</strong>? This action cannot be
+                undone.
+              </p>
+            </div>
+
+            <div className="p-6 pt-0 flex justify-end gap-3">
+              <Button
+                variant="outline"
+                className="border-gray-300 text-gray-700 hover:bg-gray-100"
+                onClick={() => setDeleteModalOpen(false)}
+                disabled={isLoading}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="bg-red-600 hover:bg-red-700 text-white"
+                onClick={executeDelete}
+                disabled={isLoading}
+              >
+                {isLoading ? "Deleting..." : "Delete Project"}
+              </Button>
+            </div>
           </div>
         </div>
       )}
