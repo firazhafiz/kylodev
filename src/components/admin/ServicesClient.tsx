@@ -119,7 +119,10 @@ export default function ServicesClient({
     <div>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Service Features</h2>
-        <Button onClick={() => openModal()} className="bg-(--color-navy)">
+        <Button
+          onClick={() => openModal()}
+          className="bg-(--color-navy) text-white"
+        >
           <Plus className="mr-2 h-4 w-4" /> Add Service
         </Button>
       </div>
@@ -230,7 +233,7 @@ export default function ServicesClient({
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-(--color-navy)"
+                  className="bg-(--color-navy) text-white"
                 >
                   Save
                 </Button>

@@ -33,6 +33,7 @@ export default function ProjectsClient({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false); // Upload loading state
 
   // Delete Modal State
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -47,6 +48,39 @@ export default function ProjectsClient({
     image: "",
     priority: false,
   });
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    const file = e.target.files[0];
+    setIsUploading(true);
+
+    const formDataUpload = new FormData();
+    formDataUpload.append("file", file);
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        headers: {
+          "x-admin-secret": secret,
+        },
+        body: formDataUpload,
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Upload failed");
+      }
+
+      const data = await res.json();
+      setFormData({ ...formData, image: data.url });
+      toast.success("Image uploaded successfully");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Upload failed");
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const openModal = (project?: Project) => {
     if (project) {
@@ -106,7 +140,7 @@ export default function ProjectsClient({
 
       if (editingProject) {
         setProjects(
-          projects.map((p) => (p.id === savedProject.id ? savedProject : p))
+          projects.map((p) => (p.id === savedProject.id ? savedProject : p)),
         );
         toast.success("Project updated");
       } else {
@@ -118,7 +152,7 @@ export default function ProjectsClient({
       router.refresh();
     } catch (error) {
       toast.error(
-        error instanceof Error ? error.message : "Error saving project"
+        error instanceof Error ? error.message : "Error saving project",
       );
       console.error(error);
     } finally {
@@ -154,7 +188,7 @@ export default function ProjectsClient({
       setProjectToDelete(null);
     } catch (error) {
       toast.error(
-        error instanceof Error ? error.message : "Error deleting project"
+        error instanceof Error ? error.message : "Error deleting project",
       );
     } finally {
       setIsLoading(false);
@@ -185,7 +219,10 @@ export default function ProjectsClient({
     <div>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Projects</h2>
-        <Button onClick={() => openModal()} className="bg-(--color-navy)">
+        <Button
+          onClick={() => openModal()}
+          className="bg-(--color-navy) text-white"
+        >
           <Plus className="mr-2 h-4 w-4" /> Add Project
         </Button>
       </div>
@@ -300,15 +337,31 @@ export default function ProjectsClient({
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="image">Image URL</Label>
-                  <Input
-                    id="image"
-                    value={formData.image}
-                    onChange={(e) =>
-                      setFormData({ ...formData, image: e.target.value })
-                    }
-                    placeholder="/images/project.jpg"
-                  />
+                  <Label>Project Image</Label>
+                  <div className="flex flex-col gap-3">
+                    {/* File Input */}
+                    {/* Native File Input for perfect centering */}
+                    <div className="flex items-center h-[50px] w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        disabled={isUploading}
+                        className="w-full text-sm text-slate-500
+                          file:mr-4 file:py-2 file:px-4
+                          file:rounded-full file:border-0
+                          file:text-sm file:font-semibold
+                          file:bg-violet-50 file:text-violet-700
+                          hover:file:bg-violet-100
+                          cursor-pointer focus:outline-none"
+                      />
+                    </div>
+                    {isUploading && (
+                      <p className="text-xs text-blue-600 animate-pulse">
+                        Uploading image...
+                      </p>
+                    )}
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="preview">Preview URL</Label>
@@ -319,6 +372,7 @@ export default function ProjectsClient({
                       setFormData({ ...formData, preview: e.target.value })
                     }
                     placeholder="https://example.com"
+                    className="h-[50px]"
                   />
                 </div>
               </div>
@@ -362,7 +416,7 @@ export default function ProjectsClient({
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-(--color-navy)"
+                  className="bg-(--color-navy) text-white"
                 >
                   {isLoading ? "Saving..." : "Save Project"}
                 </Button>

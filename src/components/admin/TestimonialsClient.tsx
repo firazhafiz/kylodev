@@ -115,7 +115,10 @@ export default function TestimonialsClient({
     <div>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Testimonials</h2>
-        <Button onClick={() => openModal()} className="bg-(--color-navy)">
+        <Button
+          onClick={() => openModal()}
+          className="bg-(--color-navy) text-white"
+        >
           <Plus className="mr-2 h-4 w-4" /> Add Testimonial
         </Button>
       </div>
@@ -220,7 +223,7 @@ export default function TestimonialsClient({
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-(--color-navy)"
+                  className="bg-(--color-navy) text-white"
                 >
                   Save
                 </Button>
