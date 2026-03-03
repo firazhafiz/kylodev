@@ -67,7 +67,7 @@ export default function Navbar() {
     if (!menuEl || !overlayEl || !ctx.current) return;
 
     const navItems = gsap.utils.toArray(
-      menuEl.querySelectorAll("nav .menu-item")
+      menuEl.querySelectorAll("nav .menu-item"),
     );
     const btnClose = menuEl.querySelector(".js-btn-close");
     const btnGetStarted = menuEl.querySelector(".js-btn-getstarted");
@@ -137,7 +137,7 @@ export default function Navbar() {
   // --- ANIMASI KELUAR NAVIGASI DESKTOP ---
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
+    href: string,
   ) => {
     if (href.startsWith("/") || href.startsWith("#")) {
       e.preventDefault();
@@ -213,11 +213,11 @@ export default function Navbar() {
           <div className="absolute left-1/2 -translate-x-1/2">
             <Link href="/" onClick={(e) => handleLinkClick(e, "/")}>
               <Image
-                src="/assets/kylo-lime.png"
+                src="/assets/kylologo-lime.svg"
                 alt="KyloDev"
                 width={28}
                 height={28}
-                className="w-12 h-auto"
+                className="w-10 h-auto"
                 priority
               />
             </Link>

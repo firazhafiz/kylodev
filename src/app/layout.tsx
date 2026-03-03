@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "KyloDev - Develope Your Digital Platform",
   description: "Website and App Development Agency",
   icons: {
-    icon: "/assets/kylo.svg",
+    icon: "/assets/kylodev.svg",
   },
 };
 

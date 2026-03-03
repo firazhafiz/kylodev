@@ -41,7 +41,7 @@ export function Footer() {
 
   const handleHashClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
+    href: string,
   ) => {
     if (href.startsWith("#")) {
       e.preventDefault();
@@ -90,7 +90,7 @@ export function Footer() {
               width={2000}
               height={2000}
               alt="logo Kylo"
-              src={"/assets/kylo-lime.png"}
+              src={"/assets/kylologo-lime.svg"}
               className="w-20 h-auto mb-6"
               priority
             />
