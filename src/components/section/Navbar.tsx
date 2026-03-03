@@ -289,7 +289,7 @@ export default function Navbar() {
         <div className="flex w-full items-center justify-between ">
           <Link href="/" className="flex justify-start">
             <Image
-              src="/assets/kylo-lime.png"
+              src="/assets/kylologo-lime.svg"
               alt="KyloDev"
               width={28}
               height={28}
