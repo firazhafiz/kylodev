@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Pencil, Trash2, Plus, Star, X } from "lucide-react";
-import Image from "next/image";
+
 
 interface Project {
   id: number;
@@ -73,7 +73,7 @@ export default function ProjectsClient({
       }
 
       const data = await res.json();
-      setFormData({ ...formData, image: data.url });
+      setFormData((prev) => ({ ...prev, image: data.url }));
       toast.success("Image uploaded successfully");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Upload failed");
@@ -232,11 +232,10 @@ export default function ProjectsClient({
           <Card key={project.id} className="overflow-hidden bg-white">
             <div className="relative h-48 w-full bg-gray-100">
               {project.image ? (
-                <Image
+                <img
                   src={project.image}
                   alt={project.name}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               ) : (
                 <div className="flex items-center justify-center h-full text-gray-400">
@@ -415,7 +414,7 @@ export default function ProjectsClient({
                 </Button>
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoading || isUploading}
                   className="bg-(--color-navy) text-white"
                 >
                   {isLoading ? "Saving..." : "Save Project"}
