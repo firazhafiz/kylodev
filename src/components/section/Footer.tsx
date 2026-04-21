@@ -167,7 +167,7 @@ export function Footer() {
 
           {/* Connect & CTA */}
           <div className="col-span-2 md:col-span-2 lg:col-span-1">
-            <h4 className="font-semibold text-lg mb-4 text-muted-foreground">
+            {/* <h4 className="font-semibold text-lg mb-4 text-muted-foreground">
               Connect
             </h4>
 
@@ -187,12 +187,12 @@ export function Footer() {
                   </a>
                 );
               })}
-            </div>
+            </div> */}
 
             <h4 className="font-semibold text-sm mb-6 text-muted-foreground">
               Get Started Today
             </h4>
-            <a href="/get-started">
+            <a href="/pricing">
               <button className="flex items-center gap-2 text-black-100 bg-lime px-6 py-3 text-sm font-bold hover:opacity-90 transition rounded-full">
                 Start a Project
               </button>
