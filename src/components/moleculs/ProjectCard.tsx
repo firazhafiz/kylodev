@@ -23,13 +23,13 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
   return (
     <div
-      className={`${bgColor} group rounded-4xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300`}
+      className={`${bgColor} group rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300`}
     >
       {/* Thumbnail */}
 
       {/* Content */}
-      <div className="p-6 space-y-8">
-        <div className="relative rounded-3xl h-64 overflow-hidden bg-muted">
+      <div className="px-4 pt-4 pb-6 space-y-8">
+        <div className="relative rounded-2xl h-64 overflow-hidden bg-muted">
           <img
             src={project.image}
             alt={project.name}
@@ -52,7 +52,7 @@ const ProjectCard = ({
           {/* Detail Link */}
           <button
             onClick={onDetailClick}
-            className="text-navy hover:text-primary/80 text-xs font-medium transition-colors inline-flex items-center gap-1"
+            className={`${bgColor === "bg-white" ? "text-navy hover:text-navy/80" : "text-lime/90 hover:text-lime"} text-xs font-medium transition-colors inline-flex items-center gap-1`}
           >
             View Details →
           </button>
@@ -62,7 +62,7 @@ const ProjectCard = ({
             <Button
               asChild
               variant="default"
-              className="w-full bg-navy hover:bg-primary/90 text-lime font-semibold py-6 rounded-xl"
+              className="w-full bg-navy hover:bg-primary/90 text-lime font-semibold py-6 rounded-full"
             >
               <a
                 href={project.preview}

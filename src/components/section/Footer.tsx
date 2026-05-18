@@ -113,11 +113,11 @@ export function Footer() {
                 type="text"
                 readOnly
                 value={contactEmail}
-                className="grow p-3 bg-white border border-gray-300 text-black-100 focus:outline-none focus:ring-1 focus:ring-lime cursor-pointer select-all rounded-xl"
+                className="grow p-3 bg-white border border-gray-300 text-black-100 focus:outline-none focus:ring-1 focus:ring-lime cursor-pointer select-all rounded-md"
               />
               <button
                 onClick={handleCopyEmail}
-                className="bg-white text-black-100 font-medium px-4 py-3 border border-gray-300 hover:bg-gray-100 transition duration-200 whitespace-nowrap rounded-xl flex items-center gap-1 cursor-pointer"
+                className="bg-white text-black-100 font-medium px-4 py-3 border border-gray-300 hover:bg-gray-100 transition duration-200 whitespace-nowrap rounded-md flex items-center gap-1 cursor-pointer"
               >
                 <Copy className="w-4 h-4 m" />
                 Copy

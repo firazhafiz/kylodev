@@ -35,7 +35,7 @@ export default function Pricing({ plans }: PricingProps) {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (sectionRef.current) {
@@ -216,14 +216,14 @@ export default function Pricing({ plans }: PricingProps) {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <p className="text-muted-foreground mb-4 text-2xl">
+          <p className="font-light text-muted-foreground mb-4 text-2xl">
             Tidak yakin paket mana yang tepat untuk Anda?
           </p>
           <Button
             variant="outline"
             size="lg"
             onClick={scrollToContact}
-            className="group hover:border-primary hover:text-primary w-full rounded-xl h-20 bg-black-100"
+            className="group hover:border-primary hover:text-primary w-full rounded-full h-20 bg-black-100"
           >
             <span className="group-hover:scale-105 transition-transform duration-300  text-(--color-lime) p-8 flex items-center gap-2 text-lg sm:text-2xl">
               <FaWhatsapp className="size-10" />

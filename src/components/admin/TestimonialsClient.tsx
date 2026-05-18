@@ -30,6 +30,8 @@ export default function TestimonialsClient({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<Testimonial | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<Testimonial | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -92,8 +94,15 @@ export default function TestimonialsClient({
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (!confirm("Delete this testimonial?")) return;
+  const confirmDelete = (item: Testimonial) => {
+    setItemToDelete(item);
+    setDeleteModalOpen(true);
+  };
+
+  const executeDelete = async () => {
+    if (!itemToDelete) return;
+    const id = itemToDelete.id;
+    setIsLoading(true);
 
     try {
       const res = await fetch(`/api/testimonials/${id}`, {
@@ -106,8 +115,12 @@ export default function TestimonialsClient({
       setData(data.filter((d) => d.id !== id));
       toast.success("Deleted successfully");
       router.refresh();
+      setDeleteModalOpen(false);
+      setItemToDelete(null);
     } catch (error) {
       toast.error("Error deleting");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -157,9 +170,9 @@ export default function TestimonialsClient({
                 <Pencil className="h-4 w-4" />
               </Button>
               <Button
-                variant="destructive"
                 size="sm"
-                onClick={() => handleDelete(item.id)}
+                className="bg-red-500 hover:bg-red-600 text-white border-0"
+                onClick={() => confirmDelete(item)}
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -229,6 +242,36 @@ export default function TestimonialsClient({
                 </Button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {deleteModalOpen && itemToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">Delete Testimonial?</h3>
+              <p className="text-gray-500">
+                Are you sure you want to delete <strong>{itemToDelete.name}</strong>'s review? This action cannot be undone.
+              </p>
+            </div>
+            <div className="p-6 pt-0 flex justify-end gap-3">
+              <Button
+                variant="outline"
+                className="border-gray-300 text-gray-700 hover:bg-gray-100"
+                onClick={() => setDeleteModalOpen(false)}
+                disabled={isLoading}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="bg-red-600 hover:bg-red-700 text-white"
+                onClick={executeDelete}
+                disabled={isLoading}
+              >
+                {isLoading ? "Deleting..." : "Delete Testimonial"}
+              </Button>
+            </div>
           </div>
         </div>
       )}

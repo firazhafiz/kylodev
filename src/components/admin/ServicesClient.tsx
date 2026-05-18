@@ -30,6 +30,8 @@ export default function ServicesClient({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ServiceFeature | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<ServiceFeature | null>(null);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -99,8 +101,16 @@ export default function ServicesClient({
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (!confirm("Delete this service?")) return;
+  const confirmDelete = (item: ServiceFeature) => {
+    setItemToDelete(item);
+    setDeleteModalOpen(true);
+  };
+
+  const executeDelete = async () => {
+    if (!itemToDelete) return;
+    const id = itemToDelete.id;
+    setIsLoading(true);
+
     try {
       const res = await fetch(`/api/services/${id}`, {
         method: "DELETE",
@@ -110,8 +120,12 @@ export default function ServicesClient({
       setData(data.filter((d) => d.id !== id));
       toast.success("Deleted");
       router.refresh();
+      setDeleteModalOpen(false);
+      setItemToDelete(null);
     } catch (error) {
       toast.error("Error deleting");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -128,7 +142,7 @@ export default function ServicesClient({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.map((item) => (
+        {[...data].sort((a, b) => a.sort_order - b.sort_order).map((item) => (
           <Card
             key={item.id}
             className="p-6 bg-white flex flex-col justify-between"
@@ -152,9 +166,9 @@ export default function ServicesClient({
                 <Pencil className="h-4 w-4" />
               </Button>
               <Button
-                variant="destructive"
                 size="sm"
-                onClick={() => handleDelete(item.id)}
+                className="bg-red-500 hover:bg-red-600 text-white border-0"
+                onClick={() => confirmDelete(item)}
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -211,13 +225,14 @@ export default function ServicesClient({
                   <Label>Sort Order</Label>
                   <Input
                     type="number"
-                    value={formData.sort_order}
-                    onChange={(e) =>
+                    value={isNaN(formData.sort_order) ? "" : formData.sort_order}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
                       setFormData({
                         ...formData,
-                        sort_order: parseInt(e.target.value),
-                      })
-                    }
+                        sort_order: isNaN(val) ? 0 : val,
+                      });
+                    }}
                   />
                 </div>
               </div>
@@ -239,6 +254,36 @@ export default function ServicesClient({
                 </Button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {deleteModalOpen && itemToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">Delete Service?</h3>
+              <p className="text-gray-500">
+                Are you sure you want to delete <strong>{itemToDelete.title}</strong>? This action cannot be undone.
+              </p>
+            </div>
+            <div className="p-6 pt-0 flex justify-end gap-3">
+              <Button
+                variant="outline"
+                className="border-gray-300 text-gray-700 hover:bg-gray-100"
+                onClick={() => setDeleteModalOpen(false)}
+                disabled={isLoading}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="bg-red-600 hover:bg-red-700 text-white"
+                onClick={executeDelete}
+                disabled={isLoading}
+              >
+                {isLoading ? "Deleting..." : "Delete Service"}
+              </Button>
+            </div>
           </div>
         </div>
       )}

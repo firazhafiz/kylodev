@@ -29,7 +29,7 @@ export default function SettingsClient({
       email: "kylodev@gmail.com",
       address: "Surabaya, Indonesia",
       mapUrl: "https://www.google.com/maps/embed?pb=...",
-    }
+    },
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -113,7 +113,7 @@ export default function SettingsClient({
             <Button
               type="submit"
               disabled={isLoading}
-              className="bg-(--color-navy)"
+              className="bg-(--color-navy) text-white!"
             >
               {isLoading ? "Saving..." : "Save Changes"}
             </Button>

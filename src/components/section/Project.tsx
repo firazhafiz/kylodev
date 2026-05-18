@@ -42,7 +42,7 @@ const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
             start: "top 80%",
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
 
       // Cards — muncul bertahap saat masuk viewport
@@ -65,7 +65,7 @@ const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
             start: "top 75%",
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
 
       // Button View All
@@ -83,7 +83,7 @@ const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
               start: "top 90%",
               toggleActions: "play none none reverse",
             },
-          }
+          },
         );
       }
     }, sectionRef);
@@ -135,7 +135,7 @@ const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
             ref={buttonRef}
             asChild
             variant="outline"
-            className="px-8 py-6 rounded-xl border-2 border-lime text-white bg-transparent font-semibold text-sm sm:text-base hover:bg-lime hover:text-navy transition-all duration-300"
+            className="px-8 py-6 rounded-md border border-lime text-white bg-transparent font-semibold text-sm sm:text-base hover:bg-lime hover:text-navy transition-all duration-300"
           >
             <Link href="/projects">View All Projects</Link>
           </Button>

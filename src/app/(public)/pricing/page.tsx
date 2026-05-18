@@ -4,7 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, CheckIcon, Star } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { pricingPlans } from "@/constant";
+import { supabase } from "@/lib/supabase";
+import { getIcon } from "@/lib/icon-map";
 import {
   SiReact,
   SiNextdotjs,
@@ -53,6 +54,20 @@ export default function Pricing() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [plans, setPlans] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      const { data } = await supabase
+        .from("pricing_plans")
+        .select("*")
+        .order("sort_order", { ascending: true });
+      if (data) {
+        setPlans(data);
+      }
+    };
+    fetchPlans();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,7 +78,7 @@ export default function Pricing() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (sectionRef.current) {
@@ -79,7 +94,7 @@ export default function Pricing() {
       : `Halo, saya mau konsultasi pembuatan website.`;
 
     const url = `https://wa.me/6282332676848?text=${encodeURIComponent(
-      message
+      message,
     )}`;
     window.open(url, "_blank");
   };
@@ -125,8 +140,8 @@ export default function Pricing() {
               ref={cardsRef}
               className="grid sm:grid-cols-2 lg:grid-cols-3   gap-6 lg:gap-8 "
             >
-              {pricingPlans.map((plan, index) => {
-                const Icon = plan.icon;
+              {plans.map((plan: any, index: number) => {
+                const Icon = getIcon(plan.icon_name);
                 return (
                   <Card
                     key={index}
@@ -200,7 +215,7 @@ export default function Pricing() {
                       </div>
 
                       <ul className="space-y-3 mb-8">
-                        {plan.features.map((feature, i) => (
+                        {plan.features.map((feature: string, i: number) => (
                           <li
                             key={i}
                             className={`flex items-start gap-3 transition-all duration-300 ${
@@ -256,14 +271,14 @@ export default function Pricing() {
                   : "opacity-0 translate-y-10"
               }`}
             >
-              <p className="text-muted-foreground mb-4 text-2xl">
+              <p className="text-muted-foreground font-light mb-4 text-2xl">
                 Tidak yakin paket mana yang tepat untuk Anda?
               </p>
               <Button
                 variant="outline"
                 size="lg"
                 onClick={() => sendWhatsapp("")}
-                className="cursor-pointer group hover:border-primary hover:text-primary w-full rounded-xl h-20 bg-black-100"
+                className="cursor-pointer group hover:border-primary hover:text-primary w-full rounded-full h-20 bg-black-100"
               >
                 <span className="group-hover:scale-105 transition-transform duration-300  text-(--color-lime) p-8 flex items-center gap-2 text-lg sm:text-2xl">
                   <FaWhatsapp className="size-10" />
