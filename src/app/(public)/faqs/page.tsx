@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import { trackMetaEvent } from "@/lib/meta";
 
 import BreadCrumb from "@/components/moleculs/BreadCrumb";
 
@@ -79,8 +80,13 @@ export default function Faqs() {
                 Jika pertanyaan Anda belum terjawab, jangan ragu untuk
                 menghubungi kami. Tim kami siap membantu Anda!
               </p>
-              <Button className="bg-gray-900 cursor-pointer text-white  ">
-                Send Email
+              <Button asChild className="bg-gray-900 cursor-pointer text-white  ">
+                <a
+                  href="mailto:kylodevcode@gmail.com?subject=Tanya%20KyloDev"
+                  onClick={() => trackMetaEvent("Contact")}
+                >
+                  Send Email
+                </a>
               </Button>
             </div>
           </div>
@@ -100,24 +106,21 @@ export default function Faqs() {
                     {item.question}
                   </span>
                   <ChevronDown
-                    className={`shrink-0 w-5 h-5 text-gray-600 transition-all duration-300 group-hover:text-lime-600 ${
-                      openIndex === index ? "rotate-180" : ""
-                    }`}
+                    className={`shrink-0 w-5 h-5 text-gray-600 transition-all duration-300 group-hover:text-lime-600 ${openIndex === index ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
                 <div
-                  className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                    openIndex === index
-                      ? "max-h-96 opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
+                  className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === index
+                    ? "max-h-96 opacity-100"
+                    : "max-h-0 opacity-0"
+                    }`}
                 >
                   <div className="px-5 pb-5 pt-1">
                     <div
-                      className={`text-gray-600 leading-relaxed transition-all duration-500 ${
-                        openIndex === index ? "translate-y-0" : "-translate-y-2"
-                      }`}
+                      className={`text-gray-600 leading-relaxed transition-all duration-500 ${openIndex === index ? "translate-y-0" : "-translate-y-2"
+                        }`}
                     >
                       {item.answer}
                     </div>

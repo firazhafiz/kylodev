@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Play, CheckCircle2, Sparkles } from "lucide-react";
+import { trackMetaEvent } from "@/lib/meta";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
@@ -77,7 +78,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen bg-black-100 overflow-hidden flex items-center pt-10 md:pt-30 pb-10 md:pb-20">
+    <section ref={sectionRef} className="relative min-h-screen bg-black-100 overflow-hidden flex items-center pt-20 md:pt-30 pb-10 md:pb-20">
       {/* Background Decorative Gradients & Vector Elements */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Glow Effects */}
@@ -145,9 +146,10 @@ export default function Hero() {
             {/* Buttons */}
             <div ref={buttonsRef} className="flex flex-wrap items-center gap-4 pt-2 opacity-0">
               <a
-                href="https://wa.me/6282332676848?text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital."
+                href="https://api.whatsapp.com/send?phone=6282332676848&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital."
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackMetaEvent("Contact")}
                 className="bg-lime text-black-100 px-7 py-4 rounded-full font-extrabold text-sm hover:bg-lime/90 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 "
               >
                 Konsultasi Sekarang <ArrowRight className="w-4 h-4" />

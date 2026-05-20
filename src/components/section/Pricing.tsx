@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Star } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { getIcon } from "@/lib/icon-map";
+import { trackMetaEvent } from "@/lib/meta";
 
 interface PricingPlan {
   id: number;
@@ -45,9 +46,16 @@ export default function Pricing({ plans }: PricingProps) {
     return () => observer.disconnect();
   }, []);
 
-  const scrollToContact = () => {
-    const contact = document.querySelector("#contact");
-    contact?.scrollIntoView({ behavior: "smooth" });
+  const sendWhatsapp = (msg: string) => {
+    const message = msg
+      ? `Halo, saya tertarik dengan layanan paket ${msg}, apakah bisa konsultasi?`
+      : `Halo, saya mau konsultasi pembuatan website.`;
+
+    const url = `https://api.whatsapp.com/send?phone=6282332676848&text=${encodeURIComponent(
+      message,
+    )}`;
+    window.open(url, "_blank");
+    trackMetaEvent("Lead");
   };
 
   return (
@@ -195,13 +203,13 @@ export default function Pricing({ plans }: PricingProps) {
 
                 <Button
                   className={`
-                      w-full font-semibold cursor-pointer ${
+                      relative z-20 w-full font-semibold cursor-pointer ${
                         plan.popular
                           ? "bg-(--color-lime) text-black-100"
                           : "bg-black-100 text-(--color-lime)"
-                      } h-12 rounded-full "}
+                      } h-12 rounded-full
                     `}
-                  onClick={scrollToContact}
+                  onClick={() => sendWhatsapp(plan.name)}
                 >
                   <span className=" font-semibold ">Pilih Paket</span>
                 </Button>
@@ -222,7 +230,7 @@ export default function Pricing({ plans }: PricingProps) {
           <Button
             variant="outline"
             size="lg"
-            onClick={scrollToContact}
+            onClick={() => sendWhatsapp("")}
             className="group hover:border-primary hover:text-primary w-full rounded-full h-20 bg-black-100"
           >
             <span className="group-hover:scale-105 transition-transform duration-300  text-(--color-lime) p-8 flex items-center gap-2 text-lg sm:text-2xl">

@@ -48,6 +48,7 @@ const benefits = [
 ];
 
 import BreadCrumb from "@/components/moleculs/BreadCrumb";
+import Link from "next/link";
 
 export default function Pricing() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -93,10 +94,15 @@ export default function Pricing() {
       ? `Halo, saya tertarik dengan layanan paket ${msg}, apakah bisa konsultasi?`
       : `Halo, saya mau konsultasi pembuatan website.`;
 
-    const url = `https://wa.me/6282332676848?text=${encodeURIComponent(
+    const url = `https://api.whatsapp.com/send?phone=6282332676848&text=${encodeURIComponent(
       message,
     )}`;
     window.open(url, "_blank");
+
+    // Trigger Meta Pixel Event for Lead
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Lead', { content_name: msg || 'Konsultasi Gratis' });
+    }
   };
 
   return (
@@ -114,11 +120,10 @@ export default function Pricing() {
         <div className="max-w-7xl mx-auto  w-full">
           <div className="relative z-10">
             <div
-              className={`text-center mb-16 transition-all duration-1000 ${
-                isVisible
+              className={`text-center mb-16 transition-all duration-1000 ${isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
-              }`}
+                }`}
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-4">
                 <Star className="w-4 h-4" />
@@ -147,17 +152,15 @@ export default function Pricing() {
                     key={index}
                     className={`
                   pricing-card relative  group  p-8 flex flex-col justify-between
-                  ${
-                    plan.popular
-                      ? "bg-black-100"
-                      : "bg-card text-card-foreground"
-                  }
+                  ${plan.popular
+                        ? "bg-black-100"
+                        : "bg-card text-card-foreground"
+                      }
                   border border-gray-300 dark:border-gray-800
-                  ${
-                    isVisible
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-10"
-                  }
+                  ${isVisible
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-10"
+                      }
                 `}
                     style={{ transitionDelay: `${index * 150}ms` }}
                     onMouseEnter={() => setHoveredCard(index)}
@@ -182,33 +185,29 @@ export default function Pricing() {
                         className={`w-14 h-14 rounded-2xl  flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
                       >
                         <Icon
-                          className={`w-7 h-7 ${
-                            plan.popular ? "text-(--color-lime)" : ""
-                          } `}
+                          className={`w-7 h-7 ${plan.popular ? "text-(--color-lime)" : ""
+                            } `}
                         />
                       </div>
 
                       <div className="mb-6">
                         <h3
-                          className={`text-2xl font-bold mb-2 ${
-                            plan.popular ? "text-(--color-lime)" : ""
-                          }`}
+                          className={`text-2xl font-bold mb-2 ${plan.popular ? "text-(--color-lime)" : ""
+                            }`}
                         >
                           {plan.name}
                         </h3>
                         <div
-                          className={`flex items-baseline gap-1 mb-2 ${
-                            plan.popular ? "text-(--color-lime)" : ""
-                          }`}
+                          className={`flex items-baseline gap-1 mb-2 ${plan.popular ? "text-(--color-lime)" : ""
+                            }`}
                         >
                           <span className={`text-5xl font-bold `}>
                             {plan.price}
                           </span>
                         </div>
                         <p
-                          className={`text-sm text-muted-foreground ${
-                            plan.popular ? "text-(--color-lime)" : ""
-                          }`}
+                          className={`text-sm text-muted-foreground ${plan.popular ? "text-(--color-lime)" : ""
+                            }`}
                         >
                           {plan.description}
                         </p>
@@ -218,27 +217,24 @@ export default function Pricing() {
                         {plan.features.map((feature: string, i: number) => (
                           <li
                             key={i}
-                            className={`flex items-start gap-3 transition-all duration-300 ${
-                              hoveredCard === index ? "translate-x-1" : ""
-                            }`}
+                            className={`flex items-start gap-3 transition-all duration-300 ${hoveredCard === index ? "translate-x-1" : ""
+                              }`}
                             style={{ transitionDelay: `${i * 50}ms` }}
                           >
                             <div
                               className={`w-5 h-5 rounded-full  flex items-center justify-center shrink-0 mt-0.5`}
                             >
                               <Check
-                                className={`h-3 w-3 text-primary ${
-                                  plan.popular ? "text-(--color-lime)" : ""
-                                }`}
+                                className={`h-3 w-3 text-primary ${plan.popular ? "text-(--color-lime)" : ""
+                                  }`}
                                 strokeWidth={3}
                               />
                             </div>
                             <span
-                              className={`text-sm   leading-relaxed ${
-                                plan.popular
+                              className={`text-sm   leading-relaxed ${plan.popular
                                   ? "text-(--color-lime)"
                                   : "text-gray-800"
-                              }`}
+                                }`}
                             >
                               {feature}
                             </span>
@@ -249,11 +245,10 @@ export default function Pricing() {
                     <Button
                       onClick={() => sendWhatsapp(plan.name)}
                       className={`
-                      z-20 w-full font-semibold cursor-pointer ${
-                        plan.popular
+                      z-20 w-full font-semibold cursor-pointer ${plan.popular
                           ? "bg-(--color-lime) text-black-100"
                           : "bg-black-100 text-(--color-lime)"
-                      } h-12 rounded-full "}
+                        } h-12 rounded-full
                     `}
                     >
                       <span className=" font-semibold ">Pilih Paket</span>
@@ -265,11 +260,10 @@ export default function Pricing() {
 
             {/* Bottom CTA */}
             <div
-              className={`text-center mt-16 transition-all duration-1000 delay-700 ${
-                isVisible
+              className={`text-center mt-16 transition-all duration-1000 delay-700 ${isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
-              }`}
+                }`}
             >
               <p className="text-muted-foreground font-light mb-4 text-2xl">
                 Tidak yakin paket mana yang tepat untuk Anda?
@@ -338,12 +332,14 @@ export default function Pricing() {
               >
                 Get Started
               </Button>
-              <Button
-                variant="outline"
-                className="group border-lime hover:text-primary w-32 rounded-full h-10 text-lime bg-transparent cursor-pointer"
-              >
-                About Us
-              </Button>
+              <Link href={"/#about"}>
+                <Button
+                  variant="outline"
+                  className="group border-lime hover:text-primary w-32 rounded-full h-10 text-lime bg-transparent cursor-pointer"
+                >
+                  About Us
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

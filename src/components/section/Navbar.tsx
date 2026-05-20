@@ -7,6 +7,7 @@ import { HiMenu, HiX, HiChevronDown } from "react-icons/hi";
 import gsap from "gsap";
 import { useRouter, usePathname } from "next/navigation";
 import { useLenis } from "lenis/react";
+import { trackMetaEvent } from "@/lib/meta";
 
 export default function Navbar() {
   const lenis = useLenis();
@@ -166,6 +167,33 @@ export default function Navbar() {
     });
   };
 
+  const handleMobileLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: string
+  ) => {
+    setIsOpen(false);
+    
+    if (item === "CONTACT" && pathname === "/") {
+      e.preventDefault();
+      lenis?.scrollTo("#contact", {
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    } else if (item === "ABOUT" && pathname === "/") {
+      e.preventDefault();
+      lenis?.scrollTo("#about", {
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    } else if (item === "HOME" && pathname === "/") {
+      e.preventDefault();
+      lenis?.scrollTo(0, {
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    }
+  };
+
   return (
     <>
       {/* ===================== DESKTOP NAVBAR – Animasi Keluar Navigasi ===================== */}
@@ -271,6 +299,7 @@ export default function Navbar() {
               href="#pricing"
               onClick={(e) => {
                 e.preventDefault();
+                trackMetaEvent("Lead");
                 lenis?.scrollTo("#pricing", {
                   duration: 2.5,
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -329,8 +358,11 @@ export default function Navbar() {
             <HiX />
           </button>
           <Link
-            href="/get-started"
-            onClick={() => setIsOpen(false)}
+            href="/pricing"
+            onClick={() => {
+              trackMetaEvent("Lead");
+              setIsOpen(false);
+            }}
             className="menu-item bg-navy text-lime px-4 py-2 absolute top-7 left-8 rounded-full font-bold text-xs hover:scale-105 transition js-btn-getstarted"
           >
             Get Started
@@ -341,21 +373,28 @@ export default function Navbar() {
             {[
               "HOME",
               "ABOUT",
-              "SERVICES",
               "PROJECTS",
               "PRICING",
               "FAQs",
               "CONTACT",
-            ].map((item) => (
-              <Link
-                key={item}
-                href={item === "HOME" ? "/" : `/${item.toLowerCase()}`}
-                onClick={() => setIsOpen(false)}
-                className="menu-item text-black-100 text-3xl font-black hover:text-navy"
-              >
-                {item}
-              </Link>
-            ))}
+            ].map((item) => {
+              const isScrollLink = ["HOME", "ABOUT", "CONTACT"].includes(item);
+              const href = item === "HOME" 
+                ? "/" 
+                : isScrollLink 
+                  ? `/#${item.toLowerCase()}` 
+                  : `/${item.toLowerCase()}`;
+              return (
+                <Link
+                  key={item}
+                  href={href}
+                  onClick={(e) => handleMobileLinkClick(e, item)}
+                  className="menu-item text-black-100 text-3xl font-black hover:text-navy"
+                >
+                  {item}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="menu-item flex flex-col gap-4 font-light tracking-wide text-left js-services-list">

@@ -60,22 +60,36 @@ export function Contact() {
   // GSAP ANIMATION
   useEffect(() => {
     if (!formRef.current) return;
-    gsap.from(formRef.current, {
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top center+=100",
-      },
-      y: 50,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power3.out",
+    const ctx = gsap.context(() => {
+      gsap.from(formRef.current, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top center+=100",
+          toggleActions: "play none none none",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      });
     });
+    return () => ctx.revert();
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent successfully!");
 
+    // Redirect to WhatsApp
+    const text = `Halo KyloDev, saya ${formData.name} (${formData.email}).\n\n${formData.message}`;
+    const url = `https://api.whatsapp.com/send?phone=6282332676848&text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank");
+
+    // Trigger Meta Pixel Event for Lead/Contact
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Contact');
+    }
+
+    toast.success("Mengalihkan ke WhatsApp...");
     setFormData({ name: "", email: "", message: "" });
   };
 
@@ -133,7 +147,7 @@ export function Contact() {
           </div>
 
           <div>
-            <form action="">
+            <form onSubmit={handleSubmit}>
               <div ref={formRef} className=" space-y-4">
                 <Input
                   id="name"
@@ -156,7 +170,10 @@ export function Contact() {
                   value={formData.message}
                   className="h-24 rounded-lg"
                 />
-                <Button className="bg-black-100 rounded-full flex justify-between gap-2 p-0 h-12 cursor-pointer border-0">
+                <Button
+                  disabled={!formData.name || !formData.email || !formData.message}
+                  className="bg-black-100 rounded-full flex justify-between gap-2 p-0 h-12 cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   <div className="bg-white rounded-full m-2 p-2  flex  items-center ">
                     <ArrowRight />
                   </div>
@@ -176,7 +193,7 @@ export function Contact() {
             loading="eager"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.33320107407735!2d112.7183000450798!3d-7.316640079974779!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb7cfcd5f739%3A0xf4d3f3f67ffddcb7!2sJl.%20Jambangan%20Baru%20II%20No.15%2C%20RT.001%2FRW.04%2C%20Jambangan%2C%20Kec.%20Jambangan%2C%20Surabaya%2C%20Jawa%20Timur%2060232!5e0!3m2!1sid!2sid!4v1764061499583!5m2!1sid!2sid"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126646.20960981323!2d112.63028156716575!3d-7.275612006222382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbf8381ac47f%3A0x3027a76e352be40!2sSurabaya%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1779265102840!5m2!1sen!2sid"
           />
         </div>
       </div>
