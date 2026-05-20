@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/assets/meta-kylo.svg",
   },
+  verification: {
+    other: {
+      "facebook-domain-verification": "8d24a29xonz41f9yow2h81xwtxvxua",
+    }
+  }
 };
 
 export default function RootLayout({
