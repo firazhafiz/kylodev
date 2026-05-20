@@ -7,6 +7,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayThinItalic.ttf") format("truetype");
@@ -14,6 +15,7 @@
   font-style: italic;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayXXThin.ttf") format("truetype");
@@ -21,6 +23,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayXXThinItalic.ttf") format("truetype");
@@ -28,6 +31,7 @@
   font-style: italic;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayXThin.ttf") format("truetype");
@@ -35,6 +39,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayXThinItalic.ttf") format("truetype");
@@ -42,6 +47,7 @@
   font-style: italic;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayLight.ttf") format("truetype");
@@ -49,6 +55,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayLightItalic.ttf") format("truetype");
@@ -56,6 +63,7 @@
   font-style: italic;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayRoman.ttf") format("truetype");
@@ -63,6 +71,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayRomanItalic.ttf") format("truetype");
@@ -70,6 +79,7 @@
   font-style: italic;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayMedium.ttf") format("truetype");
@@ -77,6 +87,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayMediumItalic.ttf") format("truetype");
@@ -84,6 +95,7 @@
   font-style: italic;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayBold.ttf") format("truetype");
@@ -91,6 +103,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayBoldItalic.ttf") format("truetype");
@@ -98,6 +111,7 @@
   font-style: italic;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayBlack.ttf") format("truetype");
@@ -105,6 +119,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/NeueHaasDisplayBlackItalic.ttf") format("truetype");
@@ -151,6 +166,7 @@ body {
   background-color: transparent;
   box-shadow: -1rem 1rem white;
 }
+
 .tag2 {
   background-color: transparent;
   box-shadow: -1rem 1rem white;
@@ -161,6 +177,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -172,6 +189,7 @@ body {
     opacity: 0;
     transform: translateX(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -203,4 +221,23 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.animated-gradient-text {
+  background: linear-gradient(to right, #ffffff, #e5ff76, #ffffff, #e5ff76);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: moveGradient 4s linear infinite;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
 }
