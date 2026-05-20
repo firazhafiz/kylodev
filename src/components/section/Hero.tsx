@@ -78,12 +78,35 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen bg-black-100 overflow-hidden flex items-center pt-10 md:pt-30 pb-10 md:pb-20">
-      {/* Background Decorative Gradients */}
+      {/* Background Decorative Gradients & Vector Elements */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Glow Effects */}
         <div ref={glow1Ref} className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-navy/20 blur-[120px]"></div>
         <div ref={glow2Ref} className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-lime/5 blur-[150px]"></div>
-        {/* Subtle Dots Pattern */}
-        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+        {/* Vector Grid Pattern (Tech Blueprint Style) */}
+        <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_50%,#000_60%,transparent_100%)]"></div>
+
+        {/* Crosshair / Plus Vectors */}
+        <div className="absolute top-20 left-[10%] opacity-60">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white">
+            <path d="M12 2v20M2 12h20" strokeWidth="1" strokeDasharray="4 4" />
+          </svg>
+        </div>
+        <div className="absolute bottom-32 left-[40%] opacity-50">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-lime">
+            <path d="M12 2v20M2 12h20" strokeWidth="0.5" />
+          </svg>
+        </div>
+        <div className="absolute top-32 right-[20%] opacity-60">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white">
+            <path d="M12 2v20M2 12h20" strokeWidth="1.5" />
+          </svg>
+        </div>
+
+        {/* Tiny Floating Vector Dots scattered */}
+        <div className="absolute top-[40%] left-[5%] w-1 h-1 bg-white/70 rounded-full"></div>
+        <div className="absolute bottom-[20%] right-[30%] w-1.5 h-1.5 bg-lime/70 rounded-full"></div>
       </div>
 
       <div className="container relative z-10 mx-auto px-6 max-w-7xl">
