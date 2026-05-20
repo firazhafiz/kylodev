@@ -18,7 +18,7 @@ export default function ProjectsClientPage({
         {/* Section Header */}
         <div className="text-center pt-30 pb-15 space-y-4">
           <h1 className="text-4xl md:text-6xl font-bold text-navy">
-            All Projects
+            Recent Projects
           </h1>
           <p className="text-black-100 font-literata tracking-wide text-sm max-w-2xl mx-auto">
             A comprehensive showcase of my portfolio spanning various

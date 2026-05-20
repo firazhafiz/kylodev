@@ -137,7 +137,7 @@ const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
             variant="outline"
             className="px-8 py-6 rounded-md border border-lime text-white bg-transparent font-semibold text-sm sm:text-base hover:bg-lime hover:text-navy transition-all duration-300"
           >
-            <Link href="/projects">View All Projects</Link>
+            <Link href="/projects">View More</Link>
           </Button>
         </div>
       </div>

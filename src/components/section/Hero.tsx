@@ -141,9 +141,9 @@ export default function Hero() {
             <div ref={statsRef} className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 ">
               <div className="opacity-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <h4 className="text-lg sm:text-2xl font-black text-white">50+</h4>
+                  <h4 className="text-lg sm:text-2xl font-black text-white">20+</h4>
                 </div>
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Projek Selesai</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Projek</p>
               </div>
               <div className="opacity-0">
                 <div className="flex items-center gap-2 mb-1">
