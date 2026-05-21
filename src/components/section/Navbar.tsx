@@ -15,6 +15,25 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Jika scroll lebih dari 20 pixel, ubah status menjadi true
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup event listener saat komponen unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Track if it's the first render to avoid animating on mount
   const isFirstRender = useRef(true);
@@ -50,7 +69,7 @@ export default function Navbar() {
 
   // Setup GSAP Context once on mount
   useEffect(() => {
-    ctx.current = gsap.context(() => {}, menuRef); // Scope to menuRef or parent
+    ctx.current = gsap.context(() => { }, menuRef); // Scope to menuRef or parent
     return () => ctx.current?.revert();
   }, []);
 
@@ -172,7 +191,7 @@ export default function Navbar() {
     item: string
   ) => {
     setIsOpen(false);
-    
+
     if (item === "CONTACT" && pathname === "/") {
       e.preventDefault();
       lenis?.scrollTo("#contact", {
@@ -314,7 +333,7 @@ export default function Navbar() {
       </nav>
 
       {/* ===================== MOBILE NAVBAR HEADER ===================== */}
-      <nav className="md:hidden fixed top-0 left-0 right-0 z-50 bg-black-100/30 backdrop-blur-sm py-7 px-7 ">
+      <nav className={`md:hidden fixed top-0 left-0 right-0 z-50 py-3.5 px-7 transition-all duration-300 ${isScrolled ? 'bg-black-100/30 backdrop-blur-sm' : 'bg-transparent'}`}>
         <div className="flex w-full items-center justify-between ">
           <Link href="/" className="flex justify-start">
             <Image
@@ -322,7 +341,7 @@ export default function Navbar() {
               alt="KyloDev"
               width={28}
               height={28}
-              className="w-7 h-auto"
+              className="w-6 h-auto"
               priority
             />
           </Link>
@@ -379,10 +398,10 @@ export default function Navbar() {
               "CONTACT",
             ].map((item) => {
               const isScrollLink = ["HOME", "ABOUT", "CONTACT"].includes(item);
-              const href = item === "HOME" 
-                ? "/" 
-                : isScrollLink 
-                  ? `/#${item.toLowerCase()}` 
+              const href = item === "HOME"
+                ? "/"
+                : isScrollLink
+                  ? `/#${item.toLowerCase()}`
                   : `/${item.toLowerCase()}`;
               return (
                 <Link
