@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import ProjectCard from "@/components/moleculs/ProjectCard";
-import { ProjectModal } from "@/components/moleculs/ProjectModal";
+import ProjectModal from "@/components/moleculs/ProjectModal";
 import { Project } from "@/constant";
 import { trackMetaEvent } from "@/lib/meta";
 import { useEffect } from "react";
