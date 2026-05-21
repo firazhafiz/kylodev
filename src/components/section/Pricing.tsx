@@ -46,7 +46,7 @@ export default function Pricing({ plans }: PricingProps) {
     return () => observer.disconnect();
   }, []);
 
-  const sendWhatsapp = (msg: string) => {
+  const sendWhatsapp = async (msg: string) => {
     const message = msg
       ? `Halo, saya tertarik dengan layanan paket ${msg}, apakah bisa konsultasi?`
       : `Halo, saya mau konsultasi pembuatan website.`;
@@ -54,8 +54,8 @@ export default function Pricing({ plans }: PricingProps) {
     const url = `https://api.whatsapp.com/send?phone=628561475550&text=${encodeURIComponent(
       message,
     )}`;
+    await trackMetaEvent("Lead", { content_name: msg ? `Pilih Paket - ${msg}` : 'Konsultasi Gratis' });
     window.open(url, "_blank");
-    trackMetaEvent("Lead");
   };
 
   return (

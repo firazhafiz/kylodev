@@ -1,12 +1,28 @@
-export const trackMetaEvent = async (eventName: string, url: string = window.location.href) => {
+interface TrackingData {
+  content_name?: string;
+  content_category?: string;
+  [key: string]: string | undefined;
+}
+
+export const trackMetaEvent = async (
+  eventName: string,
+  data?: TrackingData,
+  url: string = window.location.href
+): Promise<void> => {
   try {
+    // Generate unique event ID for deduplication between Pixel and CAPI
+    const eventId = `evt_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+
     // 1. Trigger Client-Side Meta Pixel (fbq)
     if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", eventName);
+      if (data) {
+        (window as any).fbq("track", eventName, data, { eventID: eventId });
+      } else {
+        (window as any).fbq("track", eventName, {}, { eventID: eventId });
+      }
     }
 
     // 2. Trigger Server-Side Conversions API (CAPI)
-    const eventId = `evt_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
     const clientUserAgent = navigator.userAgent;
 
     await fetch("/api/meta", {
@@ -19,6 +35,7 @@ export const trackMetaEvent = async (eventName: string, url: string = window.loc
         eventId,
         url,
         clientUserAgent,
+        ...(data && { customData: data }),
       }),
     });
   } catch (error) {

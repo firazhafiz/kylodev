@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { eventName, eventId, url, clientUserAgent } = body;
+        const { eventName, eventId, url, clientUserAgent, customData } = body;
 
         const pixelId = process.env.META_PIXEL_ID;
         const accessToken = process.env.META_ACCESS_TOKEN;
@@ -20,6 +20,7 @@ export async function POST(request: Request) {
                     action_source: "website",
                     event_id: eventId, // Wajib sama dengan ID di browser untuk deduplikasi data
                     event_source_url: url,
+                    custom_data: customData,
                     user_data: {
                         client_ip_address: clientIpAddress,
                         client_user_agent: clientUserAgent,

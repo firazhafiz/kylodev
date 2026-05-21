@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import ProjectCard from "@/components/moleculs/ProjectCard";
-import ProjectModal from "@/components/moleculs/ProjectModal";
+import { ProjectModal } from "@/components/moleculs/ProjectModal";
 import { Project } from "@/constant";
+import { trackMetaEvent } from "@/lib/meta";
+import { useEffect } from "react";
 
 export default function ProjectsClientPage({
   projects,
@@ -11,6 +13,13 @@ export default function ProjectsClientPage({
   projects: Project[];
 }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  useEffect(() => {
+    trackMetaEvent("ViewContent", {
+      content_name: "Projects Page",
+      content_category: "Portfolio",
+    });
+  }, []);
 
   return (
     <section className="min-h-screen bg-white pb-30 px-6 sm:px-4">

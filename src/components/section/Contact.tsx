@@ -15,6 +15,7 @@ import {
   Phone,
   PhoneIcon,
 } from "lucide-react";
+import { trackMetaEvent } from "@/lib/meta";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { toast } from "sonner";
@@ -76,18 +77,15 @@ export function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    await trackMetaEvent("Lead", { content_name: "Contact Form - Kirim Pesan" });
 
     // Redirect to WhatsApp
     const text = `Halo KyloDev, saya ${formData.name} (${formData.email}).\n\n${formData.message}`;
     const url = `https://api.whatsapp.com/send?phone=628561475550&text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
-
-    // Trigger Meta Pixel Event for Lead/Contact
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Contact');
-    }
 
     toast.success("Mengalihkan ke WhatsApp...");
     setFormData({ name: "", email: "", message: "" });

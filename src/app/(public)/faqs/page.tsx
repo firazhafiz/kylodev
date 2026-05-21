@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { trackMetaEvent } from "@/lib/meta";
@@ -8,6 +8,13 @@ import BreadCrumb from "@/components/moleculs/BreadCrumb";
 
 export default function Faqs() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    trackMetaEvent("ViewContent", {
+      content_name: "FAQs Page",
+      content_category: "Support",
+    });
+  }, []);
 
   const faqs = [
     {

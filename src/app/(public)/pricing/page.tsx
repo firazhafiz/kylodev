@@ -6,6 +6,7 @@ import { Check, CheckIcon, Star } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { supabase } from "@/lib/supabase";
 import { getIcon } from "@/lib/icon-map";
+import { trackMetaEvent } from "@/lib/meta";
 import {
   SiReact,
   SiNextdotjs,
@@ -89,7 +90,7 @@ export default function Pricing() {
     return () => observer.disconnect();
   }, []);
 
-  const sendWhatsapp = (msg: string) => {
+  const sendWhatsapp = async (msg: string) => {
     const message = msg
       ? `Halo, saya tertarik dengan layanan paket ${msg}, apakah bisa konsultasi?`
       : `Halo, saya mau konsultasi pembuatan website.`;
@@ -97,13 +98,14 @@ export default function Pricing() {
     const url = `https://api.whatsapp.com/send?phone=628561475550&text=${encodeURIComponent(
       message,
     )}`;
-    window.open(url, "_blank");
 
-    // Trigger Meta Pixel Event for Lead
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Lead', { content_name: msg || 'Konsultasi Gratis' });
-    }
+    await trackMetaEvent("Lead", { content_name: msg ? `Pilih Paket - ${msg}` : 'Konsultasi Gratis', content_category: 'Layanan' });
+    window.open(url, "_blank");
   };
+
+  useEffect(() => {
+    trackMetaEvent("ViewContent", { content_name: "Pricing Page", content_category: "Layanan" });
+  }, []);
 
   return (
     <>

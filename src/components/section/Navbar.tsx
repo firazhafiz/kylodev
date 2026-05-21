@@ -299,7 +299,7 @@ export default function Navbar() {
               href="#pricing"
               onClick={(e) => {
                 e.preventDefault();
-                trackMetaEvent("Lead");
+                trackMetaEvent("ViewContent", { content_name: "Navbar - Get Started Desktop" });
                 lenis?.scrollTo("#pricing", {
                   duration: 2.5,
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -360,7 +360,7 @@ export default function Navbar() {
           <Link
             href="/pricing"
             onClick={() => {
-              trackMetaEvent("Lead");
+              trackMetaEvent("ViewContent", { content_name: "Navbar - Get Started Mobile" });
               setIsOpen(false);
             }}
             className="menu-item bg-navy text-lime px-4 py-2 absolute top-7 left-8 rounded-full font-bold text-xs hover:scale-105 transition js-btn-getstarted"

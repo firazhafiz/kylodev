@@ -14,6 +14,13 @@ export default function Hero() {
   const lenis = useLenis();
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    trackMetaEvent("ViewContent", {
+      content_name: "Homepage",
+      content_category: "Landing Page",
+    });
+  }, []);
+
   // Left refs
   const badgeRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -149,7 +156,11 @@ export default function Hero() {
                 href="https://api.whatsapp.com/send?phone=628561475550&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital."
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackMetaEvent("Contact")}
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await trackMetaEvent("Lead", { content_name: "Hero - Konsultasi Sekarang" });
+                  window.open("https://api.whatsapp.com/send?phone=628561475550&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital.", "_blank");
+                }}
                 className="bg-lime text-black-100 px-7 py-4 rounded-full font-extrabold text-sm hover:bg-lime/90 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 "
               >
                 Konsultasi Sekarang <ArrowRight className="w-4 h-4" />
