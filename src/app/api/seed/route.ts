@@ -32,13 +32,16 @@ export async function GET(request: Request) {
     }
 
     // 2. Seed Pricing Plans
-    const { count: pricingCount, error: countError } = await supabase
+    // Hapus semua data pricing_plans lama (Clean up)
+    const { error: deleteError } = await supabase
       .from("pricing_plans")
-      .select("*", { count: "exact", head: true });
+      .delete()
+      .neq("id", -1); // Menghapus semua row (selalu benar karena id >= 0)
 
-    if (countError) errors.push({ type: "pricing_check", error: countError });
-
-    if (!countError && pricingCount === 0) {
+    if (deleteError) {
+      errors.push({ type: "pricing_delete", error: deleteError });
+    } else {
+      // Masukkan data baru
       for (const plan of pricingPlans) {
         const iconName = plan.icon_name || "Star";
         const { icon, ...planData } = plan;

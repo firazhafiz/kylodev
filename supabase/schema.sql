@@ -29,7 +29,11 @@ CREATE TABLE IF NOT EXISTS pricing_plans (
   features TEXT[] DEFAULT '{}',
   popular BOOLEAN DEFAULT false,
   icon_name VARCHAR(100),
-  sort_order INT DEFAULT 0
+  sort_order INT DEFAULT 0,
+  category VARCHAR(100) DEFAULT 'Web Solution',
+  badge VARCHAR(100) DEFAULT '',
+  tagline TEXT DEFAULT '',
+  add_ons JSONB DEFAULT '[]'
 );
 
 -- Service features table

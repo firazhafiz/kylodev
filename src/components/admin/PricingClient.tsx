@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,12 +10,22 @@ import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Pencil, Trash2, Plus, X, GripVertical } from "lucide-react";
 
+interface AddOn {
+  name: string;
+  price: string;
+  description: string;
+}
+
 interface PricingPlan {
   id: number;
   name: string;
   price: string;
   description: string;
+  tagline?: string;
+  category?: string;
+  badge?: string;
   features: string[];
+  add_ons?: AddOn[];
   popular: boolean;
   icon_name: string;
   sort_order: number;
@@ -36,14 +46,29 @@ export default function PricingClient({
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<PricingPlan | null>(null);
 
+  useEffect(() => {
+    if (isModalOpen || deleteModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isModalOpen, deleteModalOpen]);
+
   const [formData, setFormData] = useState({
     name: "",
     price: "",
     description: "",
+    tagline: "",
+    category: "Web Solution",
+    badge: "",
     features: "",
     popular: false,
     icon_name: "Star",
     sort_order: 0,
+    add_ons: [] as AddOn[],
   });
 
   const openModal = (item?: PricingPlan) => {
@@ -52,11 +77,15 @@ export default function PricingClient({
       setFormData({
         name: item.name,
         price: item.price,
-        description: item.description,
+        description: item.description || "",
+        tagline: item.tagline || "",
+        category: item.category || "Web Solution",
+        badge: item.badge || "",
         features: item.features.join("\n"),
-        popular: item.popular,
+        popular: item.popular || false,
         icon_name: item.icon_name || "Star",
         sort_order: item.sort_order || 0,
+        add_ons: item.add_ons || [],
       });
     } else {
       setEditingItem(null);
@@ -64,13 +93,36 @@ export default function PricingClient({
         name: "",
         price: "",
         description: "",
+        tagline: "",
+        category: "Web Solution",
+        badge: "",
         features: "",
         popular: false,
         icon_name: "Star",
         sort_order: data.length + 1,
+        add_ons: [],
       });
     }
     setIsModalOpen(true);
+  };
+
+  const handleAddOnAdd = () => {
+    setFormData({
+      ...formData,
+      add_ons: [...formData.add_ons, { name: "", price: "", description: "" }],
+    });
+  };
+
+  const handleAddOnRemove = (index: number) => {
+    const newAddOns = [...formData.add_ons];
+    newAddOns.splice(index, 1);
+    setFormData({ ...formData, add_ons: newAddOns });
+  };
+
+  const handleAddOnChange = (index: number, field: keyof AddOn, value: string) => {
+    const newAddOns = [...formData.add_ons];
+    newAddOns[index][field] = value;
+    setFormData({ ...formData, add_ons: newAddOns });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -79,6 +131,8 @@ export default function PricingClient({
 
     const payload = {
       ...formData,
+      badge: "", // Clear badge since it's no longer used
+      tagline: formData.description, // Synchronize tagline with description so public site renders description correctly
       features: formData.features.split("\n").filter((f) => f.trim() !== ""),
     };
 
@@ -158,21 +212,22 @@ export default function PricingClient({
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {[...data].sort((a, b) => a.sort_order - b.sort_order).map((item) => (
           <Card
             key={item.id}
             className={`p-6 bg-white relative ${
-              item.popular ? "border-2 border-yellow-400" : ""
+              item.popular || item.badge ? "border-2 border-[var(--color-lime)]" : ""
             }`}
           >
-            {item.popular && (
-              <div className="absolute top-0 right-0 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-bl-lg">
-                POPULAR
+            {(item.popular || item.badge) && (
+              <div className="absolute top-0 right-0 bg-[var(--color-lime)] text-xs font-bold px-3 py-1.5 rounded-bl-lg text-black-100">
+                {item.badge || "Popular"}
               </div>
             )}
             <div className="flex justify-between items-start mb-2">
               <div>
+                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{item.category || "Uncategorized"}</span>
                 <h3 className="font-bold text-xl">{item.name}</h3>
                 <p className="text-(--color-navy) font-bold text-lg">
                   {item.price}
@@ -183,14 +238,15 @@ export default function PricingClient({
               </div>
             </div>
 
-            <p className="text-gray-500 text-sm mb-4 h-10 line-clamp-2">
-              {item.description}
+            <p className="text-gray-500 text-sm mb-4 h-10 line-clamp-2 italic">
+              "{item.description}"
             </p>
 
             <ul className="text-xs text-gray-600 space-y-1 mb-6 list-disc list-inside h-24 overflow-hidden">
               {item.features.slice(0, 4).map((f, i) => (
                 <li key={i}>{f}</li>
               ))}
+              {item.features.length > 4 && <li>+ {item.features.length - 4} more</li>}
             </ul>
 
             <div className="flex justify-end gap-2 pt-4 border-t">
@@ -215,17 +271,25 @@ export default function PricingClient({
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center p-6 border-b sticky top-0 bg-white">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden"
+          >
+            {/* Modal Header */}
+            <div className="flex justify-between items-center p-6 border-b shrink-0">
               <h3 className="text-xl font-bold">
                 {editingItem ? "Edit Plan" : "New Plan"}
               </h3>
-              <button onClick={() => setIsModalOpen(false)}>
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+              >
                 <X className="w-6 h-6 text-gray-500" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            {/* Scrollable Content */}
+            <div className="p-6 space-y-6 overflow-y-auto flex-1">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Plan Name</Label>
@@ -249,111 +313,193 @@ export default function PricingClient({
                 </div>
               </div>
 
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-sm font-bold text-gray-700">Category</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-navy)] focus:ring-offset-2"
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  >
+                    <option value="Web Solution">Web Solution</option>
+                    <option value="Mobile App">Mobile App</option>
+                    <option value="Enterprise">Enterprise</option>
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm font-bold text-gray-700">Popular Status</Label>
+                  <div className="flex items-center justify-between border rounded-md px-3 h-10 bg-gray-50/50">
+                    <span className="text-sm font-medium text-gray-700">Set as Popular</span>
+                    <button
+                      type="button"
+                      id="popular"
+                      role="switch"
+                      aria-checked={formData.popular}
+                      onClick={() => setFormData({ ...formData, popular: !formData.popular })}
+                      className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--color-navy)] focus:ring-offset-2 ${
+                        formData.popular ? "bg-[var(--color-lime)]" : "bg-gray-200"
+                      }`}
+                    >
+                      <span
+                        className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                          formData.popular ? "translate-x-5" : "translate-x-0"
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label>Description</Label>
-                <Input
+                <Textarea
                   value={formData.description}
                   onChange={(e) =>
                     setFormData({ ...formData, description: e.target.value })
                   }
+                  rows={2}
+                  required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label>Features (one per line)</Label>
+                <Label>Icon Name (Lucide React)</Label>
+                <Input
+                  value={formData.icon_name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, icon_name: e.target.value })
+                  }
+                  placeholder="e.g. Star, Check, etc"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Sort Order</Label>
+                <Input
+                  type="number"
+                  value={formData.sort_order}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      sort_order: parseInt(e.target.value),
+                    })
+                  }
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Features (One per line)</Label>
                 <Textarea
                   value={formData.features}
                   onChange={(e) =>
                     setFormData({ ...formData, features: e.target.value })
                   }
-                  rows={5}
+                  rows={6}
+                  placeholder="Feature 1&#10;Feature 2&#10;Feature 3"
+                  required
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>Icon Name (Lucide/React Icon)</Label>
-                  <Input
-                    value={formData.icon_name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, icon_name: e.target.value })
-                    }
-                  />
+              <div className="space-y-4 pt-4 border-t">
+                <div className="flex items-center justify-between">
+                  <Label className="text-base font-bold">Add-Ons</Label>
+                  <Button type="button" onClick={handleAddOnAdd} size="sm" variant="outline">
+                    <Plus className="w-4 h-4 mr-2" /> Add Item
+                  </Button>
                 </div>
-                <div className="space-y-2">
-                  <Label>Sort Order</Label>
-                  <Input
-                    type="number"
-                    value={isNaN(formData.sort_order) ? "" : formData.sort_order}
-                    onChange={(e) => {
-                      const val = parseInt(e.target.value);
-                      setFormData({
-                        ...formData,
-                        sort_order: isNaN(val) ? 0 : val,
-                      });
-                    }}
-                  />
+
+                <div className="space-y-4">
+                  {formData.add_ons.map((addon, index) => (
+                    <div key={index} className="flex gap-2 items-start bg-gray-50 p-4 rounded-lg border">
+                      <div className="flex-1 space-y-3">
+                        <div className="grid grid-cols-2 gap-2">
+                          <Input
+                            placeholder="Add-on Name (e.g. Maintenance Pro)"
+                            value={addon.name}
+                            onChange={(e) => handleAddOnChange(index, "name", e.target.value)}
+                          />
+                          <Input
+                            placeholder="Price (e.g. Rp 500.000/bln)"
+                            value={addon.price}
+                            onChange={(e) => handleAddOnChange(index, "price", e.target.value)}
+                          />
+                        </div>
+                        <Input
+                          placeholder="Description / Benefits"
+                          value={addon.description}
+                          onChange={(e) => handleAddOnChange(index, "description", e.target.value)}
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="text-red-500 hover:text-red-700 hover:bg-red-50 px-2"
+                        onClick={() => handleAddOnRemove(index)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  {formData.add_ons.length === 0 && (
+                    <p className="text-sm text-gray-500 italic text-center py-4 bg-gray-50 rounded-lg border border-dashed">
+                      Tidak ada add-ons. Klik "Add Item" untuk menambahkan.
+                    </p>
+                  )}
                 </div>
               </div>
-
-              <div className="flex items-center gap-2 pt-2">
-                <input
-                  type="checkbox"
-                  id="popular"
-                  className="w-4 h-4"
-                  checked={formData.popular}
-                  onChange={(e) =>
-                    setFormData({ ...formData, popular: e.target.checked })
-                  }
-                />
-                <Label htmlFor="popular">Mark as Popular</Label>
-              </div>
-
-              <div className="flex justify-end gap-3 pt-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  disabled={isLoading}
-                  className="bg-(--color-navy) text-white"
-                >
-                  Save
-                </Button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {deleteModalOpen && itemToDelete && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden">
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">Delete Plan?</h3>
-              <p className="text-gray-500">
-                Are you sure you want to delete <strong>{itemToDelete.name}</strong>? This action cannot be undone.
-              </p>
             </div>
-            <div className="p-6 pt-0 flex justify-end gap-3">
+
+            {/* Modal Footer */}
+            <div className="p-6 border-t flex justify-end gap-2 bg-gray-50 rounded-b-xl shrink-0">
               <Button
+                type="button"
                 variant="outline"
-                className="border-gray-300 text-gray-700 hover:bg-gray-100"
-                onClick={() => setDeleteModalOpen(false)}
+                onClick={() => setIsModalOpen(false)}
                 disabled={isLoading}
               >
                 Cancel
               </Button>
               <Button
-                className="bg-red-600 hover:bg-red-700 text-white"
+                type="submit"
+                disabled={isLoading}
+                className="bg-(--color-navy) text-white"
+              >
+                {isLoading ? "Saving..." : "Save Plan"}
+              </Button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {deleteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-sm p-6 text-center">
+            <h3 className="text-lg font-bold mb-2">Delete Plan?</h3>
+            <p className="text-gray-500 mb-6 text-sm">
+              Are you sure you want to delete "{itemToDelete?.name}"? This
+              cannot be undone.
+            </p>
+            <div className="flex gap-2 justify-center">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setDeleteModalOpen(false);
+                  setItemToDelete(null);
+                }}
+                disabled={isLoading}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
                 onClick={executeDelete}
                 disabled={isLoading}
               >
-                {isLoading ? "Deleting..." : "Delete Plan"}
+                {isLoading ? "Deleting..." : "Delete"}
               </Button>
             </div>
           </div>

@@ -29,9 +29,9 @@ export default function Testimoni({ testimonials }: TestimoniProps) {
               key={item.id}
               className="bg-lime/60 rounded-2xl  flex flex-col gap-4 justify-between items-start overflow-hidden "
             >
-              <div className="p-6 max-w-[280px]">
+              <div className="p-6 w-full">
                 <QuoteIcon className="text-navy mb-4" />
-                <p className=" text-gray-700 leading-10 text-xl font-medium">
+                <p className=" text-gray-700 leading-8 text-md font-medium">
                   {item.review}
                 </p>
               </div>

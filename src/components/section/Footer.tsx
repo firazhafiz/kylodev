@@ -91,7 +91,7 @@ export function Footer() {
               height={2000}
               alt="logo Kylo"
               src={"/assets/kylologo-lime.svg"}
-              className="w-20 h-auto mb-6"
+              className="w-14 md:w-20 h-auto mb-6"
               priority
             />
             <h2 className="text-2xl lg:text-4xl font-black leading-tight">

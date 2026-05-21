@@ -41,6 +41,10 @@ model PricingPlan {
   popular     Boolean  @default(false)
   icon_name   String?
   sort_order  Int      @default(0)
+  category    String   @default("Web Solution")
+  badge       String?  @default("")
+  tagline     String?  @default("")
+  add_ons     Json?    @default("[]")
 
   @@map("pricing_plans")
 }

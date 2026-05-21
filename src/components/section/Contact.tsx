@@ -101,7 +101,7 @@ export function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="pb-36 pt-20 px-4 bg-white"
+      className="pb-36 pt-10 px-4 bg-white"
     >
       <Toaster />
 
