@@ -151,7 +151,7 @@ export default function Hero() {
             </p>
 
             {/* Buttons */}
-            <div ref={buttonsRef} className="flex flex-wrap items-center gap-4 pt-2 opacity-0">
+            <div ref={buttonsRef} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2 opacity-0">
               <a
                 href="https://api.whatsapp.com/send?phone=628561475550&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital."
                 target="_blank"
@@ -161,13 +161,13 @@ export default function Hero() {
                   await trackMetaEvent("Lead", { content_name: "Hero - Konsultasi Sekarang" });
                   window.open("https://api.whatsapp.com/send?phone=628561475550&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital.", "_blank");
                 }}
-                className="bg-lime text-black-100 px-7 py-4 rounded-full font-extrabold text-sm hover:bg-lime/90 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 "
+                className="bg-lime text-black-100 px-7 py-4 rounded-full font-extrabold text-sm hover:bg-lime/90 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 sm:w-fit"
               >
                 Konsultasi Sekarang <ArrowRight className="w-4 h-4" />
               </a>
               <Link
                 href="/projects"
-                className="bg-transparent border border-white/20 text-white px-7 py-4 rounded-full font-bold text-sm hover:bg-white/5 transition-colors"
+                className="bg-transparent border border-white/20 text-white px-7 py-4 rounded-full font-bold text-sm hover:bg-white/5 transition-colors text-center sm:w-fit"
               >
                 Jelajahi KyloDev
               </Link>
