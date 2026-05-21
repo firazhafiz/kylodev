@@ -11,8 +11,10 @@ export async function POST(request: Request) {
         // Ambil IP Address user secara aman dari headers server Next.js
         const clientIpAddress = request.headers.get('x-forwarded-for') || '127.0.0.1';
 
+        const testEventCode = process.env.META_TEST_EVENT_CODE;
+
         // Payload standar dokumentasi Meta CAPI
-        const metaPayload = {
+        const metaPayload: any = {
             data: [
                 {
                     event_name: eventName, // Misal: 'PageView' atau 'Lead'
@@ -28,6 +30,10 @@ export async function POST(request: Request) {
                 },
             ],
         };
+
+        if (testEventCode) {
+            metaPayload.test_event_code = testEventCode;
+        }
 
         const response = await fetch(
             `https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${accessToken}`,

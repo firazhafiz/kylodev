@@ -1,3 +1,14 @@
+const STANDARD_EVENTS = [
+  "PageView",
+  "ViewContent",
+  "Lead",
+  "Contact",
+  "Purchase",
+  "CompleteRegistration",
+  "InitiateCheckout",
+  "AddToCart",
+];
+
 interface TrackingData {
   content_name?: string;
   content_category?: string;
@@ -15,11 +26,8 @@ export const trackMetaEvent = async (
 
     // 1. Trigger Client-Side Meta Pixel (fbq)
     if (typeof window !== "undefined" && (window as any).fbq) {
-      if (data) {
-        (window as any).fbq("track", eventName, data, { eventID: eventId });
-      } else {
-        (window as any).fbq("track", eventName, {}, { eventID: eventId });
-      }
+      const trackMethod = STANDARD_EVENTS.includes(eventName) ? "track" : "trackCustom";
+      (window as any).fbq(trackMethod, eventName, data || {}, { eventID: eventId });
     }
 
     // 2. Trigger Server-Side Conversions API (CAPI)
