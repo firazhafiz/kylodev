@@ -34,7 +34,7 @@ export function Contact() {
 
   const [contactInfo, setContactInfo] = useState({
     email: "kylodev@gmail.com",
-    phone: "+62 823-3267-6848",
+    phone: "+62 856-147-5550",
     address: "Surabaya, Indonesia",
   });
 
@@ -49,7 +49,7 @@ export function Contact() {
       if (data?.value) {
         setContactInfo({
           email: data.value.email || "kylodev@gmail.com",
-          phone: data.value.phone || "+62 823-3267-6848",
+          phone: data.value.phone || "+62 856-147-5550",
           address: data.value.address || "Surabaya, Indonesia",
         });
       }
@@ -81,7 +81,7 @@ export function Contact() {
 
     // Redirect to WhatsApp
     const text = `Halo KyloDev, saya ${formData.name} (${formData.email}).\n\n${formData.message}`;
-    const url = `https://api.whatsapp.com/send?phone=6282332676848&text=${encodeURIComponent(text)}`;
+    const url = `https://api.whatsapp.com/send?phone=628561475550&text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
 
     // Trigger Meta Pixel Event for Lead/Contact

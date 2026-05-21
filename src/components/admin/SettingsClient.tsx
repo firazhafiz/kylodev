@@ -25,7 +25,7 @@ export default function SettingsClient({
   const router = useRouter();
   const [formData, setFormData] = useState<ContactInfo>(
     initialContact || {
-      phone: "+62 823-3267-6848",
+      phone: "+62 856-147-5550",
       email: "kylodev@gmail.com",
       address: "Surabaya, Indonesia",
       mapUrl: "https://www.google.com/maps/embed?pb=...",

@@ -146,7 +146,7 @@ export default function Hero() {
             {/* Buttons */}
             <div ref={buttonsRef} className="flex flex-wrap items-center gap-4 pt-2 opacity-0">
               <a
-                href="https://api.whatsapp.com/send?phone=6282332676848&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital."
+                href="https://api.whatsapp.com/send?phone=628561475550&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital."
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackMetaEvent("Contact")}

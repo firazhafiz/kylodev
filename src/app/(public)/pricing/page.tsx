@@ -94,7 +94,7 @@ export default function Pricing() {
       ? `Halo, saya tertarik dengan layanan paket ${msg}, apakah bisa konsultasi?`
       : `Halo, saya mau konsultasi pembuatan website.`;
 
-    const url = `https://api.whatsapp.com/send?phone=6282332676848&text=${encodeURIComponent(
+    const url = `https://api.whatsapp.com/send?phone=628561475550&text=${encodeURIComponent(
       message,
     )}`;
     window.open(url, "_blank");
@@ -121,8 +121,8 @@ export default function Pricing() {
           <div className="relative z-10">
             <div
               className={`text-center mb-16 transition-all duration-1000 ${isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
                 }`}
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-4">
@@ -232,8 +232,8 @@ export default function Pricing() {
                             </div>
                             <span
                               className={`text-sm   leading-relaxed ${plan.popular
-                                  ? "text-(--color-lime)"
-                                  : "text-gray-800"
+                                ? "text-(--color-lime)"
+                                : "text-gray-800"
                                 }`}
                             >
                               {feature}
@@ -261,8 +261,8 @@ export default function Pricing() {
             {/* Bottom CTA */}
             <div
               className={`text-center mt-16 transition-all duration-1000 delay-700 ${isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
                 }`}
             >
               <p className="text-muted-foreground font-light mb-4 text-2xl">
