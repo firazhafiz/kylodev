@@ -87,7 +87,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen bg-black-100 overflow-hidden flex items-center pb-10 md:pb-20"
+      className="relative min-h-screen bg-black-100 overflow-hidden flex items-center pb-2 md:pb-20"
       style={{
         paddingTop: "var(--hero-pt)"
       }}
