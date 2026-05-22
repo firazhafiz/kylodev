@@ -113,7 +113,7 @@ export default function Hero() {
         </div>
 
         {/* Tiny Floating Vector Dots scattered */}
-        <div className="absolute top-[40%] left-[5%] w-1 h-1 bg-white/70 rounded-full"></div>
+        <div className="absolute top-[65%] left-[5%] w-1 h-1 bg-white/70 rounded-full"></div>
         <div className="absolute bottom-[20%] right-[30%] w-1.5 h-1.5 bg-lime/70 rounded-full"></div>
       </div>
 
@@ -140,9 +140,11 @@ export default function Hero() {
               <span className="text-lime text-[10px]">●</span>
               <span>HRIS</span>
               <span className="text-lime text-[10px]">●</span>
-              <span>POS</span>
+              <span>ERP</span>
               <span className="text-lime text-[10px]">●</span>
               <span>Consulting</span>
+              <span className="text-lime text-[10px]">●</span>
+              <span>Landing Page</span>
             </div>
 
             {/* Subtitle */}
