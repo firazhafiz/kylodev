@@ -8,6 +8,7 @@ import Navbar from "@/components/section/Navbar";
 import { Footer } from "@/components/section/Footer";
 import Services from "@/components/section/Services";
 import { supabase } from "@/lib/supabase";
+import PromoBanner from "@/components/section/PromoBanner";
 
 export const revalidate = 0; // Disable caching to see updates immediately
 
@@ -31,6 +32,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen w-full overflow-hidden">
+      <PromoBanner />
       <Hero />
       <About />
       <Project projects={projects || []} />

@@ -13,6 +13,7 @@ import {
   Home,
   Menu,
   X,
+  Tag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +41,11 @@ export default function AdminSidebar({ secret }: { secret: string }) {
       label: "Pricing Plans",
       icon: CreditCard,
       href: `/admin/${secret}/pricing`,
+    },
+    {
+      label: "Promo Banner",
+      icon: Tag,
+      href: `/admin/${secret}/promo`,
     },
     {
       label: "Service Features",

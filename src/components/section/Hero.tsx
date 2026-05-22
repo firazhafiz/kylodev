@@ -85,7 +85,13 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen bg-black-100 overflow-hidden flex items-center pt-20 md:pt-30 pb-10 md:pb-20">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen bg-black-100 overflow-hidden flex items-center pb-10 md:pb-20"
+      style={{
+        paddingTop: "var(--hero-pt)"
+      }}
+    >
       {/* Background Decorative Gradients & Vector Elements */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Glow Effects */}
@@ -121,7 +127,7 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
           {/* Left Content Column */}
-          <div className="space-y-8 relative z-20 pt-10 lg:pt-0">
+          <div className="space-y-8 relative z-20 pt-4 lg:pt-0">
             {/* Badge */}
 
 
@@ -148,12 +154,12 @@ export default function Hero() {
             </div>
 
             {/* Subtitle */}
-            <p ref={subtitleRef} className="text-gray-300 text-sm font-literata font-light leading-relaxed max-w-xl opacity-0">
+            <p ref={subtitleRef} className="text-gray-300 text-xs md:text-sm font-literata font-light leading-relaxed max-w-xl opacity-0">
               Bangun ekosistem digital profesional dengan fitur lengkap dan design modern yang dirancang khusus untuk mendukung eskalasi bisnis anda secara berkelanjutan.
             </p>
 
             {/* Buttons */}
-            <div ref={buttonsRef} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2 opacity-0">
+            <div ref={buttonsRef} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4  opacity-0">
               <a
                 href="https://api.whatsapp.com/send?phone=628561475550&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital."
                 target="_blank"

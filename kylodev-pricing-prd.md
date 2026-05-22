@@ -396,42 +396,6 @@ Pricing page KyloDev saat ini menampilkan paket secara flat tanpa diferensiasi a
 
 ---
 
-### 5.3 Visual Design Tokens
-
-```css
-/* Colors — sesuaikan dengan brand KyloDev */
---color-bg-page:        #F5F7FA;
---color-bg-card:        #FFFFFF;
---color-bg-card-dark:   #0D0D0D;   /* untuk Enterprise */
---color-accent:         #C8FF00;   /* lime KyloDev */
---color-accent-dark:    #1A1A1A;   /* dark primary */
---color-text-primary:   #0D0D0D;
---color-text-muted:     #6B7280;
---color-border:         #E5E7EB;
---color-border-accent:  #C8FF00;
---color-success:        #10B981;   /* checkmark color */
-
-/* Typography */
---font-display:   'Neue Haas Display', sans-serif;  /* sudah pakai ini */
---font-size-name:    20px;
---font-size-price:   28px;
---font-size-benefit: 14px;
---font-size-muted:   13px;
-
-/* Spacing */
---card-padding:      28px;
---card-radius:       16px;
---card-gap:          24px;
---section-padding:   80px 0;
-
-/* Shadow */
---shadow-card:       0 1px 3px rgba(0,0,0,0.08);
---shadow-card-hover: 0 8px 24px rgba(0,0,0,0.12);
---shadow-popular:    0 16px 40px rgba(200,255,0,0.15);
-```
-
----
-
 ### 5.4 Interaction & Animation
 
 | Elemen | Animasi | Durasi |

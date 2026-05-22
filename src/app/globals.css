@@ -131,6 +131,23 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --hero-pt: 80px; /* default mobile (pt-20) */
+}
+
+@media (min-width: 768px) {
+  :root {
+    --hero-pt: 120px; /* default desktop (pt-30) */
+  }
+}
+
+html.has-promo {
+  --hero-pt: 0px; /* mobile when promo is active (pt-0) */
+}
+
+@media (min-width: 768px) {
+  html.has-promo {
+    --hero-pt: 40px; /* desktop when promo is active (pt-10) */
+  }
 }
 
 @theme inline {
@@ -240,4 +257,20 @@ body {
   100% {
     background-position: 100% 50%;
   }
+}
+
+/* Promo Banner Animation */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
 }

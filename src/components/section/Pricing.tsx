@@ -6,6 +6,7 @@ import { Check, Star, ChevronDown, Info } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { getIcon } from "@/lib/icon-map";
 import { trackMetaEvent } from "@/lib/meta";
+import { calculatePromoPrice } from "@/lib/promo-utils";
 
 interface AddOn {
   name: string;
@@ -25,6 +26,8 @@ interface PricingPlan {
   badge?: string;
   tagline?: string;
   add_ons?: AddOn[];
+  is_promo_active?: boolean;
+  promo_discount_percent?: number;
 }
 
 interface PricingProps {
@@ -257,6 +260,12 @@ export default function Pricing({ plans }: PricingProps) {
             const Icon = getIcon(plan.icon_name);
             const isEnterprise = plan.category === "Enterprise";
             const isPopular = plan.badge === "★ Paling Populer" || plan.popular;
+            
+            // Promo logic
+            const hasPromo = plan.is_promo_active && (plan.promo_discount_percent || 0) > 0;
+            const promoPrice = hasPromo 
+              ? calculatePromoPrice(plan.price, plan.promo_discount_percent || 0)
+              : null;
 
             return (
               <Card
@@ -313,14 +322,37 @@ export default function Pricing({ plans }: PricingProps) {
                     >
                       {plan.name}
                     </h3>
-                    <div
-                      className={`flex items-baseline gap-1 mb-2 ${isPopular && !isEnterprise ? "text-[var(--color-lime)]" : isEnterprise ? "text-[var(--color-lime)]" : ""
-                        }`}
-                    >
-                      <span className={`text-3xl md:text-4xl font-bold `}>
-                        {formatPrice(plan.price)}
-                      </span>
+                    
+                    {/* Price Display with Promo Support */}
+                    <div className="flex flex-col gap-1 mb-2">
+                      {hasPromo ? (
+                        <>
+                          {/* Original Price (Strikethrough) */}
+                          <div className="flex items-baseline gap-2">
+                            <span className={`text-xl line-through ${isPopular && !isEnterprise ? "text-gray-400" : isEnterprise ? "text-gray-500" : "text-gray-400"}`}>
+                              {formatPrice(plan.price)}
+                            </span>
+                            <span className="bg-red-500 text-white px-2 py-0.5 rounded text-xs font-bold">
+                              -{plan.promo_discount_percent || 0}%
+                            </span>
+                          </div>
+                          {/* Promo Price */}
+                          <div className={`flex items-baseline gap-1 ${isPopular && !isEnterprise ? "text-[var(--color-lime)]" : isEnterprise ? "text-[var(--color-lime)]" : "text-primary"}`}>
+                            <span className="text-3xl md:text-4xl font-bold">
+                              {promoPrice}
+                            </span>
+                          </div>
+                        </>
+                      ) : (
+                        /* Normal Price (No Promo) */
+                        <div className={`flex items-baseline gap-1 ${isPopular && !isEnterprise ? "text-[var(--color-lime)]" : isEnterprise ? "text-[var(--color-lime)]" : ""}`}>
+                          <span className="text-3xl md:text-4xl font-bold">
+                            {formatPrice(plan.price)}
+                          </span>
+                        </div>
+                      )}
                     </div>
+                    
                     <p
                       className={`text-sm ${isPopular && !isEnterprise ? "text-[var(--color-lime)]" : isEnterprise ? "text-gray-400" : "text-muted-foreground"
                         }`}

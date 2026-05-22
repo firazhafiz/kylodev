@@ -218,7 +218,7 @@ export default function Navbar() {
       {/* ===================== DESKTOP NAVBAR – Animasi Keluar Navigasi ===================== */}
       <nav
         ref={desktopNavRef}
-        className="hidden md:block py-6 px-6 absolute top-0 left-0 right-0 z-50"
+        className="hidden md:block py-6 px-6 absolute top-0 left-0 right-0 z-50 transition-all duration-300"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between relative">
           <div className="flex items-center space-x-10">
@@ -333,7 +333,9 @@ export default function Navbar() {
       </nav>
 
       {/* ===================== MOBILE NAVBAR HEADER ===================== */}
-      <nav className={`md:hidden fixed top-0 left-0 right-0 z-50 py-3.5 px-7 transition-all duration-300 ${isScrolled ? 'bg-black-100/30 backdrop-blur-sm' : 'bg-transparent'}`}>
+      <nav 
+        className={`md:hidden fixed top-0 left-0 right-0 z-50 py-3.5 px-7 transition-all duration-300 ${isScrolled ? 'bg-black-100/30 backdrop-blur-sm' : 'bg-transparent'}`}
+      >
         <div className="flex w-full items-center justify-between ">
           <Link href="/" className="flex justify-start">
             <Image
