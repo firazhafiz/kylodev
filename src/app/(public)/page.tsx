@@ -37,8 +37,8 @@ export default async function Home() {
       <About />
       <Project projects={projects || []} />
       <Services features={services || []} />
-      <Testimoni testimonials={testimonials || []} />
       <Pricing plans={plans || []} />
+      <Testimoni testimonials={testimonials || []} />
       <Contact />
     </main>
   );

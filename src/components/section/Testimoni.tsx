@@ -14,12 +14,12 @@ interface TestimoniProps {
 
 export default function Testimoni({ testimonials }: TestimoniProps) {
   return (
-    <div className=" flex justify-center sm:pt-30 sm:pb-14 py-20 px-4">
+    <div className=" flex justify-center pt-15 sm:pb-14 py-20 px-4">
       <div className="max-w-7xl  w-full">
         <div className="text-center">
           <p className="text-navy tracking-wide uppercase">Testimoni</p>
           <h2 className="text-3xl font-semibold mt-2">
-            Apa Kata Pengguna Tentang Layanan Kami
+            Apa Kata Mereka Tentang Layanan Kami
           </h2>
         </div>
 
