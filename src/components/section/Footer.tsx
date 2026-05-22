@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "sonner";
 import { useLenis } from "lenis/react";
+import { trackMetaEvent } from "@/lib/meta";
 
 export function Footer() {
   const lenis = useLenis();
@@ -192,9 +193,17 @@ export function Footer() {
             <h4 className="font-semibold text-sm mb-6 text-muted-foreground">
               Get Started Today
             </h4>
-            <a href="/pricing">
+            <a
+              href="/pricing"
+              onClick={() => {
+                trackMetaEvent("ViewContent", {
+                  content_name: "Footer - Start Project",
+                  content_category: "Navigation",
+                });
+              }}
+            >
               <button className="flex items-center gap-2 text-black-100 bg-lime px-6 py-3 text-sm font-bold hover:opacity-90 transition rounded-full">
-                Start a Project
+                Start Project
               </button>
             </a>
           </div>

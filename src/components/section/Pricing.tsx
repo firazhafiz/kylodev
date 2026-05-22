@@ -173,28 +173,28 @@ export default function Pricing({ plans }: PricingProps) {
     return () => observer.disconnect();
   }, []);
 
-  const sendWhatsapp = async (planName?: string, isConsultation?: boolean) => {
+  const sendWhatsapp = (planName?: string, isConsultation?: boolean) => {
     let message: string;
     let trackLabel: string;
 
     if (isConsultation || !planName) {
-      // Bottom CTA or Enterprise "Konsultasi Gratis"
       message = `Halo KyloDev, saya ingin konsultasi untuk menentukan paket yang tepat. Bisa bantu saya?`;
       trackLabel = "Konsultasi Gratis";
     } else {
-      // "Pilih Paket" per card
       message = `Halo KyloDev, saya tertarik dengan Paket ${planName} (${activeTab}). Bisa bantu saya untuk info lebih lanjut?`;
       trackLabel = `Pilih Paket - ${planName}`;
     }
 
     const url = `https://api.whatsapp.com/send?phone=628561475550&text=${encodeURIComponent(message)}`;
 
-    await trackMetaEvent("Lead", {
+    // Open immediately on user gesture (required by iOS Safari)
+    window.open(url, "_blank");
+
+    // Fire tracking in background — no await
+    trackMetaEvent("Lead", {
       content_name: trackLabel,
       content_category: activeTab,
     });
-
-    window.open(url, "_blank");
   };
 
   return (
@@ -211,11 +211,11 @@ export default function Pricing({ plans }: PricingProps) {
           className={`text-center mb-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-            Harga Transparan, Tanpa Biaya Tersembunyi
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 pt-6 text-gray-900">
+            Harga Transparan Serta Terbaik
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Pilih paket yang sesuai dengan kebutuhan dan skala bisnis Anda.
+            Pilih paket yang sesuai dengan kebutuhan dan skala bisnis anda.
           </p>
         </div>
 

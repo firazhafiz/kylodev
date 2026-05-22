@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { trackMetaEvent } from "@/lib/meta";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -137,7 +138,17 @@ const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
             variant="outline"
             className="px-8 py-6 rounded-md border border-lime text-white bg-transparent font-semibold text-sm sm:text-base hover:bg-lime hover:text-navy transition-all duration-300"
           >
-            <Link href="/projects">View More</Link>
+            <Link
+              href="/projects"
+              onClick={() => {
+                trackMetaEvent("ViewContent", {
+                  content_name: "Landing - View More Projects",
+                  content_category: "Navigation",
+                });
+              }}
+            >
+              View More
+            </Link>
           </Button>
         </div>
       </div>

@@ -217,11 +217,11 @@ export default function PricingClient({
           <Card
             key={item.id}
             className={`p-6 bg-white relative ${
-              item.popular || item.badge ? "border-2 border-[var(--color-lime)]" : ""
+              item.popular || item.badge ? "border-2 border-navy" : ""
             }`}
           >
             {(item.popular || item.badge) && (
-              <div className="absolute top-0 right-0 bg-[var(--color-lime)] text-xs font-bold px-3 py-1.5 rounded-bl-lg text-black-100">
+              <div className="absolute top-0 right-0 bg-navy text-xs font-bold px-3 py-1.5 rounded-bl-lg text-white">
                 {item.badge || "Popular"}
               </div>
             )}
@@ -338,7 +338,7 @@ export default function PricingClient({
                       aria-checked={formData.popular}
                       onClick={() => setFormData({ ...formData, popular: !formData.popular })}
                       className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--color-navy)] focus:ring-offset-2 ${
-                        formData.popular ? "bg-[var(--color-lime)]" : "bg-gray-200"
+                        formData.popular ? "bg-navy" : "bg-gray-200"
                       }`}
                     >
                       <span

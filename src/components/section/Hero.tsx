@@ -156,10 +156,10 @@ export default function Hero() {
                 href="https://api.whatsapp.com/send?phone=628561475550&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital."
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={async (e) => {
+                onClick={(e) => {
                   e.preventDefault();
-                  await trackMetaEvent("Lead", { content_name: "Hero - Konsultasi Sekarang" });
                   window.open("https://api.whatsapp.com/send?phone=628561475550&text=Halo%20KyloDev,%20saya%20ingin%20konsultasi%20mengenai%20pembuatan%20projek%20digital.", "_blank");
+                  trackMetaEvent("Lead", { content_name: "Hero - Konsultasi Sekarang" });
                 }}
                 className="bg-lime text-black-100 px-7 py-4 rounded-full font-extrabold text-sm hover:bg-lime/90 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 sm:w-fit"
               >
@@ -167,6 +167,12 @@ export default function Hero() {
               </a>
               <Link
                 href="/projects"
+                onClick={() => {
+                  trackMetaEvent("ViewContent", {
+                    content_name: "Hero - Jelajahi KyloDev",
+                    content_category: "Navigation",
+                  });
+                }}
                 className="bg-transparent border border-white/20 text-white px-7 py-4 rounded-full font-bold text-sm hover:bg-white/5 transition-colors text-center sm:w-fit"
               >
                 Jelajahi KyloDev

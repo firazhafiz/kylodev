@@ -30,7 +30,7 @@ export default function ProjectsClientPage({
             Recent Projects
           </h1>
           <p className="text-black-100 font-literata tracking-wide text-sm max-w-2xl mx-auto">
-            A comprehensive showcase of my portfolio spanning various
+            A comprehensive showcase of our portfolio spanning various
             technologies and domains
           </p>
         </div>

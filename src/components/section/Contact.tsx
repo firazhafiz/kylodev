@@ -80,12 +80,13 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await trackMetaEvent("Lead", { content_name: "Contact Form - Kirim Pesan" });
-
-    // Redirect to WhatsApp
+    // Open immediately on user gesture (required by iOS Safari)
     const text = `Halo KyloDev, saya ${formData.name} (${formData.email}).\n\n${formData.message}`;
     const url = `https://api.whatsapp.com/send?phone=628561475550&text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
+
+    // Fire tracking in background — no await
+    trackMetaEvent("Lead", { content_name: "Contact Form - Kirim Pesan" });
 
     toast.success("Mengalihkan ke WhatsApp...");
     setFormData({ name: "", email: "", message: "" });
