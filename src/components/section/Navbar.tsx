@@ -334,7 +334,7 @@ export default function Navbar() {
 
       {/* ===================== MOBILE NAVBAR HEADER ===================== */}
       <nav
-        className={`md:hidden fixed top-0 left-0 right-0 z-50 py-3.5 px-7 transition-all duration-300 ${isScrolled ? 'bg-black-100/30 backdrop-blur-sm' : 'bg-gray-100'}`}
+        className={`md:hidden fixed top-0 left-0 right-0 z-50 py-3.5 px-7 transition-all duration-300 ${isScrolled ? 'bg-black-100/30 backdrop-blur-sm' : 'bg-white'}`}
       >
         <div className="flex w-full items-center justify-between ">
           <Link href="/" className="flex justify-start transition-all duration-300">
