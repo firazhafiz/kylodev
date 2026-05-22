@@ -70,12 +70,31 @@ export default function PromoBanner() {
     const isActive = promo?.isValid && isVisible;
     if (isActive) {
       document.documentElement.classList.add("has-promo");
+      
+      const updateHeight = () => {
+        const banner = document.getElementById("promo-banner-container");
+        if (banner) {
+          const rect = banner.getBoundingClientRect();
+          document.documentElement.style.setProperty("--promo-height", `${rect.height}px`);
+        }
+      };
+      
+      // Delay slightly to let the DOM settle and animate
+      const timer = setTimeout(updateHeight, 50);
+      window.addEventListener("resize", updateHeight);
+      
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("resize", updateHeight);
+      };
     } else {
       document.documentElement.classList.remove("has-promo");
+      document.documentElement.style.removeProperty("--promo-height");
     }
 
     return () => {
       document.documentElement.classList.remove("has-promo");
+      document.documentElement.style.removeProperty("--promo-height");
     };
   }, [promo, isVisible]);
 
@@ -110,7 +129,7 @@ export default function PromoBanner() {
   return (
     <div
       id="promo-banner-container"
-      className="bg-gradient-to-r from-navy via-black-100 to-navy text-white pt-[76px] pb-3.5 px-5 sm:px-6 md:pt-[116px] md:pb-4 md:px-8 relative animate-slideDown border-b border-lime/20"
+      className="bg-gradient-to-r from-navy/90 via-black-100 to-navy/90 text-white pt-[86px] pb-3.5 px-5 sm:px-6 md:pt-[116px] md:pb-4 md:px-8 relative animate-slideDown border-b border-lime/20"
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3.5 md:gap-4">
 

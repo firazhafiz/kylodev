@@ -218,14 +218,14 @@ export default function Navbar() {
       {/* ===================== DESKTOP NAVBAR – Animasi Keluar Navigasi ===================== */}
       <nav
         ref={desktopNavRef}
-        className="hidden md:block py-6 px-6 absolute top-0 left-0 right-0 z-50 transition-all duration-300"
+        className="hidden bg-gray-100 md:block py-6 px-6 absolute top-0 left-0 right-0 z-50 transition-all duration-300"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between relative">
           <div className="flex items-center space-x-10">
             <Link
               href="/"
               onClick={(e) => handleLinkClick(e, "/")}
-              className="text-gray-100 font-light tracking-wider text-sm hover:text-lime transition"
+              className="text-black-100 font-light tracking-wider text-sm hover:text-navy transition"
             >
               HOME
             </Link>
@@ -238,7 +238,7 @@ export default function Navbar() {
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 });
               }}
-              className="text-gray-100 font-light tracking-wider text-sm hover:text-lime transition"
+              className="text-black-100 font-light tracking-wider text-sm hover:text-navy transition"
             >
               ABOUT
             </Link>
@@ -251,7 +251,7 @@ export default function Navbar() {
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 });
               }}
-              className="text-gray-100 font-light tracking-wider text-sm hover:text-lime transition"
+              className="text-black-100 font-light tracking-wider text-sm hover:text-navy transition"
             >
               SERVICES
             </Link>
@@ -260,11 +260,11 @@ export default function Navbar() {
           <div className="absolute left-1/2 -translate-x-1/2">
             <Link href="/" onClick={(e) => handleLinkClick(e, "/")}>
               <Image
-                src="/assets/kylologo-lime.svg"
+                src="/assets/kylologo-navy.svg"
                 alt="KyloDev"
                 width={28}
                 height={28}
-                className="w-10 h-auto"
+                className="w-9 h-auto"
                 priority
               />
             </Link>
@@ -272,7 +272,7 @@ export default function Navbar() {
 
           <div className="flex items-center space-x-8">
             <div className="relative group">
-              <button className="flex items-center gap-1 text-gray-100 font-light tracking-wider text-sm hover:text-lime transition">
+              <button className="flex items-center gap-1 text-black-100 font-light tracking-wider text-sm hover:text-navy transition">
                 PAGES
                 <HiChevronDown className="w-4 h-4 transition-transform " />
               </button>
@@ -310,7 +310,7 @@ export default function Navbar() {
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 });
               }}
-              className="text-gray-100 font-light tracking-wider text-sm hover:text-lime transition"
+              className="text-black-100 font-light tracking-wider text-sm hover:text-navy transition"
             >
               CONTACT
             </Link>
@@ -333,13 +333,13 @@ export default function Navbar() {
       </nav>
 
       {/* ===================== MOBILE NAVBAR HEADER ===================== */}
-      <nav 
-        className={`md:hidden fixed top-0 left-0 right-0 z-50 py-3.5 px-7 transition-all duration-300 ${isScrolled ? 'bg-black-100/30 backdrop-blur-sm' : 'bg-transparent'}`}
+      <nav
+        className={`md:hidden fixed top-0 left-0 right-0 z-50 py-3.5 px-7 transition-all duration-300 ${isScrolled ? 'bg-black-100/30 backdrop-blur-sm' : 'bg-gray-100'}`}
       >
         <div className="flex w-full items-center justify-between ">
-          <Link href="/" className="flex justify-start">
+          <Link href="/" className="flex justify-start transition-all duration-300">
             <Image
-              src="/assets/kylologo-lime.svg"
+              src={`/assets/kylologo-${isScrolled ? 'lime' : 'navy'}.svg`}
               alt="KyloDev"
               width={28}
               height={28}
@@ -349,7 +349,7 @@ export default function Navbar() {
           </Link>
           <button
             onClick={() => setIsOpen(true)}
-            className="text-lime text-3xl hover:scale-110 transition"
+            className={`text-3xl transition-all duration-300 hover:scale-110 transition ${isScrolled ? 'text-lime' : 'text-navy'}`}
           >
             <HiMenu />
           </button>
