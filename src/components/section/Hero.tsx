@@ -149,7 +149,7 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p ref={subtitleRef} className="text-gray-300 text-sm font-literata font-light leading-relaxed max-w-xl opacity-0">
-              Bangun ekosistem digital profesional dengan fitur lengkap dan design modern yang dirancang khusus untuk mendukung eskalasi bisnis Anda secara berkelanjutan.
+              Bangun ekosistem digital profesional dengan fitur lengkap dan design modern yang dirancang khusus untuk mendukung eskalasi bisnis anda secara berkelanjutan.
             </p>
 
             {/* Buttons */}
