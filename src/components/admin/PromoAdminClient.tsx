@@ -25,11 +25,11 @@ interface PricingPlan {
   promo_discount_percent: number;
 }
 
-export default function PromoAdminClient({ 
-  initialBanner, 
-  initialPlans 
-}: { 
-  initialBanner: PromoBanner | null; 
+export default function PromoAdminClient({
+  initialBanner,
+  initialPlans
+}: {
+  initialBanner: PromoBanner | null;
   initialPlans: PricingPlan[];
 }) {
   const defaultBanner: PromoBanner = {
@@ -44,11 +44,11 @@ export default function PromoAdminClient({
   // Normalize end_date ke format datetime-local (YYYY-MM-DDTHH:MM)
   const normalizedBanner = initialBanner
     ? {
-        ...initialBanner,
-        end_date: initialBanner.end_date
-          ? new Date(initialBanner.end_date).toISOString().slice(0, 16)
-          : defaultBanner.end_date,
-      }
+      ...initialBanner,
+      end_date: initialBanner.end_date
+        ? new Date(initialBanner.end_date).toISOString().slice(0, 16)
+        : defaultBanner.end_date,
+    }
     : defaultBanner;
 
   const [banner, setBanner] = useState<PromoBanner>(normalizedBanner);
@@ -105,7 +105,7 @@ export default function PromoAdminClient({
       {/* Banner Config */}
       <Card className="p-6 bg-white">
         <h2 className="text-xl font-bold mb-4 text-gray-900">Banner Configuration</h2>
-        
+
         <div className="space-y-4">
           <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
             <div>
@@ -172,14 +172,13 @@ export default function PromoAdminClient({
         <p className="text-sm text-gray-600 mb-4">
           Aktifkan promo untuk paket tertentu dan set persentase diskon. Harga promo akan otomatis dihitung.
         </p>
-        
+
         <div className="space-y-3">
           {plans.map((plan, index) => (
-            <div 
-              key={plan.id} 
-              className={`flex flex-col sm:flex-row sm:items-center gap-4 p-4 rounded-lg border transition-colors ${
-                plan.is_promo_active ? 'bg-lime/5 border-lime/30' : 'bg-gray-50 border-gray-200'
-              }`}
+            <div
+              key={plan.id}
+              className={`flex flex-col sm:flex-row sm:items-center gap-4 p-4 rounded-lg border transition-colors ${plan.is_promo_active ? 'bg-lime/5 border-lime/30' : 'bg-gray-50 border-gray-200'
+                }`}
             >
               <Switch
                 checked={plan.is_promo_active}
@@ -189,7 +188,7 @@ export default function PromoAdminClient({
                   setPlans(updated);
                 }}
               />
-              
+
               <div className="flex-1">
                 <p className="font-semibold text-gray-900">{plan.name}</p>
                 <p className="text-sm text-gray-500">{plan.price}</p>
@@ -218,19 +217,10 @@ export default function PromoAdminClient({
         </div>
       </Card>
 
-      {/* Preview Info */}
-      <Card className="p-6 bg-blue-50 border-blue-200">
-        <h3 className="font-semibold text-blue-900 mb-2">💡 Preview</h3>
-        <p className="text-sm text-blue-800">
-          Setelah menyimpan, buka homepage untuk melihat banner promo. 
-          Harga coret akan muncul otomatis di card pricing yang diaktifkan promonya.
-        </p>
-      </Card>
-
       {/* Actions */}
-      <Button 
-        onClick={handleSave} 
-        disabled={isSaving} 
+      <Button
+        onClick={handleSave}
+        disabled={isSaving}
         className="w-full h-12 bg-navy! text-white! rounded-full! text-base font-semibold"
       >
         {isSaving ? (

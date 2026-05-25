@@ -9,6 +9,7 @@ import {
   Smartphone,
   SearchCheck,
   BarChart4,
+  Users,
 } from "lucide-react";
 import { CgSmartphone } from "react-icons/cg";
 
@@ -379,49 +380,49 @@ export const pricingPlans = [
 export const serviceFeatures = [
   {
     id: 1,
-    title: "Domain + Hosting Premium Gratis 1 Tahun",
+    title: "Web Solutions & E-Commerce",
     description:
-      "Dapatkan domain .com/.co.id + hosting 10GB NVMe SSD tanpa biaya tambahan selama setahun penuh.",
+      "Website premium & Toko Online berkecepatan tinggi, mobile responsive, lengkap dengan optimasi SEO On-Page terbaik agar mudah nangkring di Google.",
     icon: Globe,
     icon_name: "Globe",
   },
   {
     id: 2,
-    title: "SSL Certificate & IP Dedicated",
+    title: "Mobile App (Android & iOS)",
     description:
-      "Website Anda dilindungi enkripsi SSL kelas enterprise + IP khusus untuk keamanan dan kecepatan maksimal.",
-    icon: ShieldCheck,
-    icon_name: "ShieldCheck",
-  },
-  {
-    id: 3,
-    title: "Email Profesional Custom Domain",
-    description:
-      "Email bisnis resmi seperti nama@perusahaan Anda (unlimited alias, akses webmail & mobile).",
-    icon: MailCheck,
-    icon_name: "MailCheck",
-  },
-  {
-    id: 4,
-    title: "100% Mobile Responsive",
-    description:
-      "Tampilan sempurna di HP, tablet, hingga desktop — pengunjung nyaman dari perangkat apa pun.",
+      "Aplikasi mobile custom multi-platform berbasis Flutter/React Native dengan UI/UX modern, push notification, dan API backend yang scalable.",
     icon: Smartphone,
     icon_name: "Smartphone",
   },
   {
-    id: 5,
-    title: "Optimasi SEO On-Page Terbaik",
+    id: 3,
+    title: "Custom HRIS Enterprise",
     description:
-      "Struktur kode, meta tag, kecepatan loading, dan schema markup sudah dioptimalkan agar mudah nangkring di Google.",
-    icon: SearchCheck,
-    icon_name: "SearchCheck",
+      "Sistem absensi digital (GPS, QR, Face Recognition), penggajian otomatis, manajemen cuti & lembur dalam satu platform yang terintegrasi.",
+    icon: Users,
+    icon_name: "Users",
+  },
+  {
+    id: 4,
+    title: "Integrated ERP System",
+    description:
+      "Sistem inventori stok barang, procurement, sales purchasing, akuntansi, dan finance yang dirancang khusus sesuai alur bisnis unik Anda.",
+    icon: BuildingIcon,
+    icon_name: "BuildingIcon",
+  },
+  {
+    id: 5,
+    title: "Secure Cloud Infrastructure",
+    description:
+      "Proteksi SSL Enterprise, IP Dedicated, backup otomatis, dan setup cloud infrastructure yang aman untuk perlindungan data bisnis maksimal.",
+    icon: ShieldCheck,
+    icon_name: "ShieldCheck",
   },
   {
     id: 6,
-    title: "Dashboard Statistik Pengunjung Real-time",
+    title: "Real-time Business Dashboard",
     description:
-      "Pantau jumlah pengunjung, asal kota, halaman favorit, dan perilaku user langsung dari dashboard website Anda.",
+      "Visualisasi data penjualan, statistik pengunjung, laporan keuangan, dan KPI tim secara real-time langsung dari satu dashboard analitik terpadu.",
     icon: BarChart4,
     icon_name: "BarChart4",
   },

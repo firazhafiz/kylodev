@@ -8,20 +8,20 @@ import Image from "next/image";
 const stats = [
   {
     icon: CheckCircle,
-    value: "50+",
+    value: "10+",
     label: "Proyek Selesai",
     color: "color-navy",
   },
   {
     icon: Users,
-    value: "40+",
+    value: "10+",
     label: "Klien Puas",
     color: "text-(--color-navy)",
   },
   {
     icon: Award,
     value: "100%",
-    label: "Client Satisfaction",
+    label: "Kepuasan Klien",
     color: "text-(--color-navy)",
   },
 ];
@@ -58,9 +58,8 @@ export default function About() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div
-          className={`text-center mb-20 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`text-center mb-20 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-black-100 rounded-full  text-(--color-lime) mb-4">
             <Code className="w-4 h-4" />
@@ -80,7 +79,7 @@ export default function About() {
           <div className="relative">
             <div className="relative rounded-3xl overflow-hidden  ">
               <Image
-                src={"/images/about.jpg"}
+                src={"/images/team.jpg"}
                 alt="about"
                 width={500}
                 height={700}
@@ -116,11 +115,10 @@ export default function About() {
 
           {/* Right Side - Content */}
           <div
-            className={`space-y-8 transition-all duration-1000 delay-500 ${
-              isVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-10"
-            }`}
+            className={`space-y-8 transition-all duration-1000 delay-500 ${isVisible
+              ? "opacity-100 translate-x-0"
+              : "opacity-0 translate-x-10"
+              }`}
           >
             {/* Main Description */}
             <div>
@@ -135,7 +133,7 @@ export default function About() {
 
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p className="text-lg">
-                  Kami adalah tim freelance developer yang berdedikasi untuk
+                  Kami adalah tim developer profesional yang berdedikasi untuk
                   membantu pelaku usaha dan bisnis bertransformasi menjadi lebih
                   profesional melalui solusi digital yang tepat sasaran.
                 </p>

@@ -106,7 +106,7 @@ const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
             Featured Projects
           </h2>
           <p className="text-lime font-literata tracking-wide font-light text-lg max-w-2xl mx-auto">
-            Discover our latest work showcasing modern development
+            Eksplor project popular terakhir yang kami kerjakan
           </p>
         </div>
 

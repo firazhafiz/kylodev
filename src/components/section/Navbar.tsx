@@ -14,6 +14,7 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const isHome = pathname === "/";
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -218,14 +219,14 @@ export default function Navbar() {
       {/* ===================== DESKTOP NAVBAR – Animasi Keluar Navigasi ===================== */}
       <nav
         ref={desktopNavRef}
-        className="hidden bg-gray-100 md:block py-6 px-6 absolute top-0 left-0 right-0 z-50 transition-all duration-300"
+        className={`hidden md:block py-6 px-6 absolute top-0 left-0 right-0 z-50 transition-all duration-500 ${pathname !== "/" ? "text-white" : "bg-white"}`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between relative">
           <div className="flex items-center space-x-10">
             <Link
               href="/"
               onClick={(e) => handleLinkClick(e, "/")}
-              className="text-black-100 font-light tracking-wider text-sm hover:text-navy transition"
+              className={`font-light tracking-wider text-sm transition ${isHome ? "text-black-100 hover:text-navy" : "text-white hover:text-lime"}`}
             >
               HOME
             </Link>
@@ -238,7 +239,7 @@ export default function Navbar() {
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 });
               }}
-              className="text-black-100 font-light tracking-wider text-sm hover:text-navy transition"
+              className={`font-light tracking-wider text-sm transition ${isHome ? "text-black-100 hover:text-navy" : "text-white hover:text-lime"}`}
             >
               ABOUT
             </Link>
@@ -251,7 +252,7 @@ export default function Navbar() {
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 });
               }}
-              className="text-black-100 font-light tracking-wider text-sm hover:text-navy transition"
+              className={`font-light tracking-wider text-sm transition ${isHome ? "text-black-100 hover:text-navy" : "text-white hover:text-lime"}`}
             >
               SERVICES
             </Link>
@@ -260,7 +261,7 @@ export default function Navbar() {
           <div className="absolute left-1/2 -translate-x-1/2">
             <Link href="/" onClick={(e) => handleLinkClick(e, "/")}>
               <Image
-                src="/assets/kylologo-navy.svg"
+                src={isHome ? "/assets/kylologo-navy.svg" : "/assets/kylologo-lime.svg"}
                 alt="KyloDev"
                 width={28}
                 height={28}
@@ -272,9 +273,9 @@ export default function Navbar() {
 
           <div className="flex items-center space-x-8">
             <div className="relative group">
-              <button className="flex items-center gap-1 text-black-100 font-light tracking-wider text-sm hover:text-navy transition">
+              <button className={`flex items-center gap-1 font-light tracking-wider text-sm transition ${isHome ? "text-black-100 hover:text-navy" : "text-white hover:text-lime"}`}>
                 PAGES
-                <HiChevronDown className="w-4 h-4 transition-transform " />
+                <HiChevronDown className="w-4 h-4 transition-transform" />
               </button>
               <div className="absolute top-full left-0 w-48 pt-6 pointer-events-none">
                 <div className="opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-auto">
@@ -310,7 +311,7 @@ export default function Navbar() {
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 });
               }}
-              className="text-black-100 font-light tracking-wider text-sm hover:text-navy transition"
+              className={`font-light tracking-wider text-sm transition ${isHome ? "text-black-100 hover:text-navy" : "text-white hover:text-lime"}`}
             >
               CONTACT
             </Link>

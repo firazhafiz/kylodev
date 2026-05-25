@@ -80,9 +80,8 @@ const Features: React.FC<FeaturesProps> = ({ features }) => {
           </h2>
 
           <p className="text-lg max-w-2xl mx-auto font-literata font-light leading-relaxed text-gray-500">
-            Setiap website yang kami buat dilengkapi dengan fitur-fitur terbaik
-            dan modern untuk memastikan bisnis Anda tampil maksimal di dunia
-            digital
+            Setiap solusi digital yang kami bangun dirancang khusus menggunakan teknologi terbaik
+            untuk mendukung eskalasi dan transformasi bisnis Anda secara berkelanjutan
           </p>
         </div>
 
@@ -102,38 +101,33 @@ const Features: React.FC<FeaturesProps> = ({ features }) => {
                 }}
               >
                 <div
-                  className={`relative h-full rounded-3xl p-8 transition-all duration-500 overflow-hidden ${
-                    isHovered
-                      ? "bg-black-100 shadow-2xl -translate-y-2"
-                      : "bg-black-100 shadow-md"
-                  }`}
+                  className={`relative h-full rounded-3xl p-8 transition-all duration-500 overflow-hidden ${isHovered
+                    ? "bg-black-100 -translate-y-2"
+                    : "bg-black-100 shadow-md"
+                    }`}
                 >
                   <div
-                    className={`absolute top-0 right-0 w-24 h-24 rounded-bl-full transition-all duration-500 ${
-                      isHovered ? "bg-lime opacity-30" : "bg-cream opacity-50"
-                    }`}
+                    className={`absolute top-0 right-0 w-24 h-24 rounded-bl-full transition-all duration-500 ${isHovered ? "bg-lime opacity-30" : "bg-cream opacity-50"
+                      }`}
                   />
 
                   <div
-                    className={`absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-500 ${
-                      isHovered
-                        ? "bg-lime text-black-100"
-                        : "bg-cream text-black-100"
-                    }`}
+                    className={`absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-500 ${isHovered
+                      ? "bg-lime text-black-100"
+                      : "bg-cream text-black-100"
+                      }`}
                   >
                     {feature.id}
                   </div>
 
                   <div className="mb-6 relative z-10">
                     <div
-                      className={`inline-flex p-4 rounded-2xl transition-all duration-500 ${
-                        isHovered ? "bg-lime" : "bg-cream"
-                      }`}
+                      className={`inline-flex p-4 rounded-2xl transition-all duration-500 ${isHovered ? "bg-lime" : "bg-cream"
+                        }`}
                     >
                       <IconComponent
-                        className={`w-8 h-8 transition-all duration-500 ${
-                          isHovered ? "text-black-100" : "text-navy"
-                        }`}
+                        className={`w-8 h-8 transition-all duration-500 ${isHovered ? "text-black-100" : "text-navy"
+                          }`}
                         strokeWidth={2}
                       />
                     </div>
@@ -144,20 +138,18 @@ const Features: React.FC<FeaturesProps> = ({ features }) => {
                       {feature.title}
                     </h3>
                     <p
-                      className={`leading-relaxed tracking-wider font-light transition-colors duration-500 ${
-                        isHovered ? "text-cream" : "text-cream/60"
-                      }`}
+                      className={`leading-relaxed tracking-wider font-light transition-colors duration-500 ${isHovered ? "text-cream" : "text-cream/60"
+                        }`}
                     >
                       {feature.description}
                     </p>
                   </div>
 
                   <div
-                    className={`absolute bottom-6 right-6 transition-all duration-500 ${
-                      isHovered
-                        ? "opacity-100 translate-x-0 translate-y-0"
-                        : "opacity-0 -translate-x-2 translate-y-2"
-                    }`}
+                    className={`absolute bottom-6 right-6 transition-all duration-500 ${isHovered
+                      ? "opacity-100 translate-x-0 translate-y-0"
+                      : "opacity-0 -translate-x-2 translate-y-2"
+                      }`}
                   >
                     <svg
                       width="24"

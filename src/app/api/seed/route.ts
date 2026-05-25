@@ -55,14 +55,14 @@ export async function GET(request: Request) {
     }
 
     // 3. Seed Service Features
-    const { count: serviceCount, error: serviceCheckError } = await supabase
+    const { error: serviceDeleteError } = await supabase
       .from("service_features")
-      .select("*", { count: "exact", head: true });
+      .delete()
+      .neq("id", -1); // Clean up all rows
 
-    if (serviceCheckError)
-      errors.push({ type: "service_check", error: serviceCheckError });
-
-    if (!serviceCheckError && serviceCount === 0) {
+    if (serviceDeleteError) {
+      errors.push({ type: "service_delete", error: serviceDeleteError });
+    } else {
       for (const feature of serviceFeatures) {
         const iconName = feature.icon_name || "Globe";
         const { icon, ...featureData } = feature;
