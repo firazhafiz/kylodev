@@ -68,7 +68,7 @@ Seluruh konfigurasi promo harus dapat dikelola mandiri oleh admin melalui dashbo
 ```
 BR-01: Banner hanya tampil jika status promo = ACTIVE
 BR-02: Promo otomatis nonaktif jika tanggal berakhir sudah lewat
-BR-03: Promo otomatis nonaktif jika sisa slot = 0
+BR-03: Promo otomatis nonaktif jika saya matikan manual
 BR-04: Jika kedua kondisi (BR-02 & BR-03) terpenuhi, 
         promo nonaktif berdasarkan kondisi yang lebih dulu terjadi
 BR-05: Countdown timer menggunakan server time, bukan client time
@@ -85,127 +85,6 @@ BR-10: Admin tidak bisa set tanggal berakhir di masa lalu
 ```
 
 ---
-
-## 5. DATA MODEL
-
-### Tabel: promo_config
-
-```sql
-CREATE TABLE promo_config (
-  id                    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  
-  -- Status & Scheduling
-  is_active             BOOLEAN DEFAULT false,
-  start_date            TIMESTAMP WITH TIME ZONE,
-  end_date              TIMESTAMP WITH TIME ZONE,
-  
-  -- Konten Banner
-  promo_type            ENUM('early_bird', 'limited_slot', 'seasonal') 
-                        DEFAULT 'early_bird',
-  badge_label           VARCHAR(50),      -- "Early Bird", "Spesial Ramadan", dll
-  headline              VARCHAR(150),     -- Judul utama banner
-  subheadline           VARCHAR(250),     -- Kalimat pendukung
-  
-  -- Urgency Mechanism (bisa salah satu atau keduanya)
-  use_countdown         BOOLEAN DEFAULT true,
-  use_slot_counter      BOOLEAN DEFAULT false,
-  total_slots           INT,              -- NULL jika tidak pakai slot
-  remaining_slots       INT,              -- Diupdate manual oleh admin
-  slot_label            VARCHAR(100),     -- "slot tersisa bulan ini"
-  
-  -- Pricing Display
-  show_price_comparison BOOLEAN DEFAULT false,
-  packages              JSONB,            -- Array paket dengan harga promo
-  
-  -- CTA
-  cta_label             VARCHAR(100) DEFAULT 'Lihat Paket Promo',
-  cta_url               VARCHAR(255) DEFAULT '/pricing',
-  cta_secondary_label   VARCHAR(100),     -- "atau konsultasi gratis"
-  cta_secondary_url     VARCHAR(255),
-  
-  -- Disclaimer
-  disclaimer_text       VARCHAR(500),
-  
-  -- Metadata
-  created_at            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  created_by            VARCHAR(100),
-  last_published_at     TIMESTAMP WITH TIME ZONE,
-  notes                 TEXT              -- Catatan internal admin
-);
-```
-
-### Tabel: promo_history
-
-```sql
-CREATE TABLE promo_history (
-  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  promo_id        UUID REFERENCES promo_config(id),
-  snapshot        JSONB,          -- Snapshot data promo saat diarchive
-  started_at      TIMESTAMP WITH TIME ZONE,
-  ended_at        TIMESTAMP WITH TIME ZONE,
-  end_reason      ENUM('manual', 'expired', 'slot_exhausted'),
-  total_clicks    INT DEFAULT 0,  -- Klik CTA selama promo aktif
-  created_at      TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-```
-
-### Struktur JSONB packages
-
-```json
-[
-  {
-    "name": "Starter",
-    "original_price": "Rp 1.000.000",
-    "promo_price": "Rp 500.000",
-    "discount_percent": 50,
-    "highlight": false
-  },
-  {
-    "name": "Business",
-    "original_price": "Rp 5.000.000",
-    "promo_price": "Rp 3.000.000",
-    "discount_percent": 40,
-    "highlight": true
-  }
-]
-```
-
----
-
-## 6. API ENDPOINTS
-
-### Public (Frontend)
-
-```
-GET  /api/promo/active
-→ Return promo yang sedang aktif beserta server timestamp
-→ Dipakai frontend untuk render banner & hitung countdown
-→ Response di-cache 60 detik (ISR Next.js)
-
-Response:
-{
-  "isActive": true,
-  "serverTime": "2026-05-22T10:00:00+07:00",
-  "endDate": "2026-05-31T23:59:59+07:00",
-  "secondsRemaining": 864000,
-  "promo": { ...promo_config fields }
-}
-```
-
-### Admin (Protected, Auth Required)
-
-```
-GET    /api/admin/promo              → Get current config + history
-POST   /api/admin/promo              → Create / update config
-PATCH  /api/admin/promo/toggle       → Toggle is_active on/off
-PATCH  /api/admin/promo/slots        → Update remaining_slots
-DELETE /api/admin/promo/:id          → Archive promo ke history
-GET    /api/admin/promo/preview      → Get config tanpa cache
-        (untuk preview di dashboard)
-GET    /api/admin/promo/history      → List semua promo lampau
-```
-
 ---
 
 ## 7. FRONTEND — PROMO BANNER
@@ -342,43 +221,6 @@ const initCountdown = (endDate: string, serverTime: string) => {
   return () => clearInterval(interval); // cleanup
 };
 ```
-
-### 7.6 Design Tokens Banner
-
-```css
-/* Banner spesifik */
---banner-bg:            #0D0D0D;        /* dark, kontras dengan hero */
---banner-border-bottom: 2px solid #C8FF00;
---banner-padding:       16px 24px;     /* desktop */
---banner-padding-mobile: 16px;
-
---badge-bg:             #C8FF00;
---badge-color:          #0D0D0D;
---badge-radius:         100px;
---badge-padding:        4px 12px;
---badge-font-size:      11px;
---badge-font-weight:    700;
-
---countdown-box-bg:     rgba(255,255,255,0.08);
---countdown-box-radius: 8px;
---countdown-box-size:   52px;          /* desktop */
---countdown-number-size: 24px;
---countdown-label-size: 10px;
---countdown-color:      #C8FF00;
-
---price-original-color: #6B7280;
---price-original-decoration: line-through;
---price-promo-color:    #FFFFFF;
---price-promo-size:     18px;
---price-promo-weight:   700;
-
---slot-indicator-color: #C8FF00;
---cta-banner-bg:        #C8FF00;
---cta-banner-color:     #0D0D0D;
---cta-banner-radius:    8px;
---cta-banner-padding:   12px 24px;
-```
-
 ### 7.7 Animasi Banner
 
 ```

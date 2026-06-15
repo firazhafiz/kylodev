@@ -39,7 +39,7 @@ export default function About() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (sectionRef.current) {
@@ -58,14 +58,15 @@ export default function About() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div
-          className={`text-center mb-20 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
+          className={`text-center mb-20 transition-all duration-1000 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-black-100 rounded-full  text-(--color-lime) mb-4">
             <Code className="w-4 h-4" />
             <span className="text-sm font-medium">Tentang Kami</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-black-100">
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-black-100">
             Partner Digital Terpercaya Anda
           </h2>
           <p className="text-lg md:text-xl text-black-100 max-w-2xl mx-auto">
@@ -115,10 +116,11 @@ export default function About() {
 
           {/* Right Side - Content */}
           <div
-            className={`space-y-8 transition-all duration-1000 delay-500 ${isVisible
-              ? "opacity-100 translate-x-0"
-              : "opacity-0 translate-x-10"
-              }`}
+            className={`space-y-8 transition-all duration-1000 delay-500 ${
+              isVisible
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 translate-x-10"
+            }`}
           >
             {/* Main Description */}
             <div>

@@ -70,7 +70,7 @@ export default function Navbar() {
 
   // Setup GSAP Context once on mount
   useEffect(() => {
-    ctx.current = gsap.context(() => { }, menuRef); // Scope to menuRef or parent
+    ctx.current = gsap.context(() => {}, menuRef); // Scope to menuRef or parent
     return () => ctx.current?.revert();
   }, []);
 
@@ -189,7 +189,7 @@ export default function Navbar() {
 
   const handleMobileLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    item: string
+    item: string,
   ) => {
     setIsOpen(false);
 
@@ -261,7 +261,11 @@ export default function Navbar() {
           <div className="absolute left-1/2 -translate-x-1/2">
             <Link href="/" onClick={(e) => handleLinkClick(e, "/")}>
               <Image
-                src={isHome ? "/assets/kylologo-navy.svg" : "/assets/kylologo-lime.svg"}
+                src={
+                  isHome
+                    ? "/assets/kylologo-navy.svg"
+                    : "/assets/kylologo-lime.svg"
+                }
                 alt="KyloDev"
                 width={28}
                 height={28}
@@ -273,7 +277,9 @@ export default function Navbar() {
 
           <div className="flex items-center space-x-8">
             <div className="relative group">
-              <button className={`flex items-center gap-1 font-light tracking-wider text-sm transition ${isHome ? "text-black-100 hover:text-navy" : "text-white hover:text-lime"}`}>
+              <button
+                className={`flex items-center gap-1 font-light tracking-wider text-sm transition ${isHome ? "text-black-100 hover:text-navy" : "text-white hover:text-lime"}`}
+              >
                 PAGES
                 <HiChevronDown className="w-4 h-4 transition-transform" />
               </button>
@@ -319,7 +325,9 @@ export default function Navbar() {
               href="#pricing"
               onClick={(e) => {
                 e.preventDefault();
-                trackMetaEvent("ViewContent", { content_name: "Navbar - Get Started Desktop" });
+                trackMetaEvent("ViewContent", {
+                  content_name: "Navbar - Get Started Desktop",
+                });
                 lenis?.scrollTo("#pricing", {
                   duration: 2.5,
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -335,12 +343,15 @@ export default function Navbar() {
 
       {/* ===================== MOBILE NAVBAR HEADER ===================== */}
       <nav
-        className={`md:hidden fixed top-0 left-0 right-0 z-50 py-3.5 px-7 transition-all duration-300 ${isScrolled ? 'bg-black-100/30 backdrop-blur-sm' : 'bg-white'}`}
+        className={`md:hidden fixed top-0 left-0 right-0 z-50 py-3.5 px-7 transition-all duration-300 ${isScrolled ? "bg-black-100/30 backdrop-blur-sm" : "bg-white"}`}
       >
         <div className="flex w-full items-center justify-between ">
-          <Link href="/" className="flex justify-start transition-all duration-300">
+          <Link
+            href="/"
+            className="flex justify-start transition-all duration-300"
+          >
             <Image
-              src={`/assets/kylologo-${isScrolled ? 'lime' : 'navy'}.svg`}
+              src={`/assets/kylologo-${isScrolled ? "lime" : "navy"}.svg`}
               alt="KyloDev"
               width={28}
               height={28}
@@ -350,7 +361,7 @@ export default function Navbar() {
           </Link>
           <button
             onClick={() => setIsOpen(true)}
-            className={`text-3xl transition-all duration-300 hover:scale-110 transition ${isScrolled ? 'text-lime' : 'text-navy'}`}
+            className={`text-3xl transition-all duration-300 hover:scale-110 ${isScrolled ? "text-lime" : "text-navy"}`}
           >
             <HiMenu />
           </button>
@@ -382,7 +393,9 @@ export default function Navbar() {
           <Link
             href="/pricing"
             onClick={() => {
-              trackMetaEvent("ViewContent", { content_name: "Navbar - Get Started Mobile" });
+              trackMetaEvent("ViewContent", {
+                content_name: "Navbar - Get Started Mobile",
+              });
               setIsOpen(false);
             }}
             className="menu-item bg-navy text-lime px-4 py-2 absolute top-7 left-8 rounded-full font-bold text-xs hover:scale-105 transition js-btn-getstarted"
@@ -392,31 +405,29 @@ export default function Navbar() {
 
           {/* Navigation Links - Mulai setelah header dan tombol Get Started */}
           <nav className=" flex flex-col gap-4 text-left mt-10">
-            {[
-              "HOME",
-              "ABOUT",
-              "PROJECTS",
-              "PRICING",
-              "FAQs",
-              "CONTACT",
-            ].map((item) => {
-              const isScrollLink = ["HOME", "ABOUT", "CONTACT"].includes(item);
-              const href = item === "HOME"
-                ? "/"
-                : isScrollLink
-                  ? `/#${item.toLowerCase()}`
-                  : `/${item.toLowerCase()}`;
-              return (
-                <Link
-                  key={item}
-                  href={href}
-                  onClick={(e) => handleMobileLinkClick(e, item)}
-                  className="menu-item text-black-100 text-3xl font-black hover:text-navy"
-                >
-                  {item}
-                </Link>
-              );
-            })}
+            {["HOME", "ABOUT", "PROJECTS", "PRICING", "FAQs", "CONTACT"].map(
+              (item) => {
+                const isScrollLink = ["HOME", "ABOUT", "CONTACT"].includes(
+                  item,
+                );
+                const href =
+                  item === "HOME"
+                    ? "/"
+                    : isScrollLink
+                      ? `/#${item.toLowerCase()}`
+                      : `/${item.toLowerCase()}`;
+                return (
+                  <Link
+                    key={item}
+                    href={href}
+                    onClick={(e) => handleMobileLinkClick(e, item)}
+                    className="menu-item text-black-100 text-3xl font-black hover:text-navy"
+                  >
+                    {item}
+                  </Link>
+                );
+              },
+            )}
           </nav>
 
           <div className="menu-item flex flex-col gap-4 font-light tracking-wide text-left js-services-list">

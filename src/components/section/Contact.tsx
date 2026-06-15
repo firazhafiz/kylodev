@@ -14,6 +14,7 @@ import {
   MapPin,
   Phone,
   PhoneIcon,
+  Instagram,
 } from "lucide-react";
 import { trackMetaEvent } from "@/lib/meta";
 import gsap from "gsap";
@@ -37,6 +38,7 @@ export function Contact() {
     email: "kylodev@gmail.com",
     phone: "+62 856-147-5550",
     address: "Surabaya, Indonesia",
+    instagram: "@kylodev.id",
   });
 
   useEffect(() => {
@@ -52,6 +54,7 @@ export function Contact() {
           email: data.value.email || "kylodev@gmail.com",
           phone: data.value.phone || "+62 856-147-5550",
           address: data.value.address || "Surabaya, Indonesia",
+          instagram: data.value.instagram || "@kylodev.id",
         });
       }
     }
@@ -93,7 +96,7 @@ export function Contact() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -142,6 +145,19 @@ export function Contact() {
                 </div>
                 <h3>{contactInfo.address}</h3>
               </div>
+              <div className="flex gap-4 items-center">
+                <div className="bg-(--color-lime) rounded-full p-3 ">
+                  <Instagram />
+                </div>
+                <a
+                  href="https://instagram.com/kylodev.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-(--color-navy) transition-colors"
+                >
+                  <h3>{contactInfo.instagram}</h3>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -170,7 +186,9 @@ export function Contact() {
                   className="h-24 rounded-lg"
                 />
                 <Button
-                  disabled={!formData.name || !formData.email || !formData.message}
+                  disabled={
+                    !formData.name || !formData.email || !formData.message
+                  }
                   className="bg-black-100 rounded-full flex justify-between gap-2 p-0 h-12 cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="bg-white rounded-full m-2 p-2  flex  items-center ">
