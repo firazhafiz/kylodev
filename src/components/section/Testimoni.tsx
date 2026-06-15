@@ -38,15 +38,6 @@ export default function Testimoni({ testimonials }: TestimoniProps) {
               <div className="relative flex gap-4 items-center justify-center bg-white rounded-tr-2xl p-4">
                 <div className="tag absolute -top-10 left-0 h-10 w-10  rounded-full  shadow-white"></div>
                 <div className="tag2 absolute bottom-0 -right-10 h-10 w-10  rounded-full  shadow-white"></div>
-                {item.photo && (
-                  <Image
-                    src={item.photo}
-                    alt={item.name}
-                    width={100}
-                    height={100}
-                    className="h-10 w-10 rounded-full object-cover"
-                  />
-                )}
 
                 <h3 className="font-semibold text-black-100 text-sm ">
                   {item.name}
