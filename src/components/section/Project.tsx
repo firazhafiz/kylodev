@@ -24,7 +24,7 @@ const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
 
-  const priorityProjects = projects.filter((p) => p.priority).slice(0, 3);
+  const priorityProjects = projects.filter((p) => p.priority && !p.is_hidden).slice(0, 3);
 
   useEffect(() => {
     const ctx = gsap.context(() => {

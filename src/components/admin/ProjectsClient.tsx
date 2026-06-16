@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Pencil, Trash2, Plus, Star, X } from "lucide-react";
+import { Pencil, Trash2, Plus, Star, X, Eye, EyeOff } from "lucide-react";
 
 
 interface Project {
@@ -19,6 +19,7 @@ interface Project {
   preview: string;
   image: string;
   priority: boolean;
+  is_hidden?: boolean;
 }
 
 export default function ProjectsClient({
@@ -215,6 +216,26 @@ export default function ProjectsClient({
     }
   };
 
+  const toggleVisibility = async (project: Project) => {
+    try {
+      const res = await fetch(`/api/projects/${project.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-secret": secret,
+        },
+        body: JSON.stringify({ is_hidden: !project.is_hidden }),
+      });
+
+      if (!res.ok) throw new Error("Failed to update");
+      const updated = await res.json();
+      setProjects(projects.map((p) => (p.id === updated.id ? updated : p)));
+      toast.success(`Project ${updated.is_hidden ? "hidden" : "visible"}`);
+    } catch (error) {
+      toast.error("Error updating visibility");
+    }
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
@@ -247,6 +268,11 @@ export default function ProjectsClient({
                   <Star className="w-3 h-3 mr-1 fill-black" /> Featured
                 </div>
               )}
+              {project.is_hidden && (
+                <div className="absolute top-2 left-2 bg-gray-800 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center shadow-sm">
+                  <EyeOff className="w-3 h-3 mr-1" /> Hidden
+                </div>
+              )}
             </div>
             <div className="p-4">
               <h3 className="font-bold text-lg mb-1">{project.name}</h3>
@@ -273,6 +299,23 @@ export default function ProjectsClient({
                 </Button>
 
                 <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => toggleVisibility(project)}
+                    className={
+                      project.is_hidden
+                        ? "text-gray-500 bg-gray-100"
+                        : "text-blue-600"
+                    }
+                    title={project.is_hidden ? "Show Project" : "Hide Project"}
+                  >
+                    {project.is_hidden ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </Button>
                   <Button
                     variant="outline"
                     size="sm"

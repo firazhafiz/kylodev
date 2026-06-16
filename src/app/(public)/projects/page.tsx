@@ -10,10 +10,12 @@ export default async function AllProjectsSection() {
     .select("*")
     .order("id", { ascending: true });
 
+  const visibleProjects = (projects || []).filter((p) => !p.is_hidden);
+
   return (
     <>
       <BreadCrumb route="Projects" />
-      <ProjectsClientPage projects={projects || []} />
+      <ProjectsClientPage projects={visibleProjects} />
     </>
   );
 }

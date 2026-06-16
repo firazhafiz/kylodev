@@ -22,6 +22,7 @@ export interface Project {
   image: string;
   frameworks: Array<{ id: number; name: string }>;
   priority?: boolean;
+  is_hidden?: boolean;
 }
 
 export const projects: Project[] = [
