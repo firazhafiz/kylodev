@@ -118,6 +118,7 @@ const LandingProjectsSection = ({ projects }: LandingProjectsSectionProps) => {
               ref={(el) => {
                 if (el) cardsRef.current[index] = el;
               }}
+              style={{ willChange: "transform, opacity" }}
             >
               <ProjectCard
                 titleColor="text-black-100"

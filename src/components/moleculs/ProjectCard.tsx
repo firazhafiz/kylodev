@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 interface ProjectCardProps {
   project: {
@@ -30,10 +31,13 @@ const ProjectCard = ({
       {/* Content */}
       <div className="px-4 pt-4 pb-6 space-y-8">
         <div className="relative rounded-2xl h-64 overflow-hidden bg-muted">
-          <img
+          <Image
             src={project.image}
             alt={project.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            style={{ willChange: "transform" }}
           />
           <div className="absolute inset-0 bg-linear-to-t from-navy/20 to-transparent" />
         </div>

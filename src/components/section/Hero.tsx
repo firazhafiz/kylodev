@@ -175,10 +175,12 @@ export default function Hero() {
         <div
           ref={glow1Ref}
           className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-navy/20 blur-[120px]"
+          style={{ willChange: "transform, opacity" }}
         ></div>
         <div
           ref={glow2Ref}
           className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-lime/5 blur-[150px]"
+          style={{ willChange: "transform, opacity" }}
         ></div>
 
         {/* Vector Grid Pattern (Tech Blueprint Style) */}
@@ -354,6 +356,7 @@ export default function Hero() {
             <div
               ref={card1Ref}
               className="absolute top-13 right-0 w-[90%] h-[340px] bg-white/5 backdrop-blur-xl rounded-4xl border border-white/10 p-4 sm:p-6 shadow-2xl flex flex-col opacity-0"
+              style={{ willChange: "transform, opacity" }}
             >
               {/* Browser Header */}
               <div className="flex w-full bg-red items-center justify-between border-b border-white/10 pb-4 mb-4 sm:mb-5">
@@ -394,6 +397,7 @@ export default function Hero() {
             <div
               ref={card2Ref}
               className="absolute bottom-12 left-0 w-[220px] h-[400px] bg-[#0a0f1a] rounded-[1.75rem] border-[6px] border-black-100 shadow-lg flex flex-col z-20 opacity-0 -rotate-3 overflow-hidden"
+              style={{ willChange: "transform, opacity" }}
             >
               {/* Dynamic Island / Notch */}
               <div className="w-20 h-6 bg-black-100 rounded-b-xl mx-auto absolute top-0 left-1/2 -translate-x-1/2 z-10"></div>
@@ -423,6 +427,7 @@ export default function Hero() {
             <div
               ref={card3Ref}
               className="absolute bottom-38 right-0 lg:right-10 w-[280px] bg-[#fafafa] rounded-xl p-6 shadow-[0_30px_60px_rgba(0,0,0,0.3)] z-30 opacity-0"
+              style={{ willChange: "transform, opacity" }}
             >
               <div className="flex justify-between items-center mb-6">
                 <div>
